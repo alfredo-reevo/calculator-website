@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+        <title>REEVES - Quadratic Solver</title>
+        <link rel="stylesheet" href="quad.css">
+        <script src="quadratic.js" defer></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <header class="head">
+            <h1 class="title">Quadratic Solver</h1>
+            <h2>input coefficient variables to find <em id="variable">x</em>:</h2>
+            <nav class="nav">
+                <ul>
+                    <li>
+                        <a id="home" href="index.html">Calculator</a>
+                    </li>
+                    <li>
+                        <button class="bg-button">
+                            <a href="img/aaronchin.jpg" id="aaronbackground">picture of the century</a>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="flexbox-container">
+            <div class="template">
+                <input type="text" placeholder="a" class="coefficient" id="a">
+                <p class="main">x&#x00B2;</p>
+                <input type="text" placeholder="&pm;" class="operation" id="plus-minus-1">
+                <input type="text" placeholder="b" class="coefficient" id="b">
+                <p class="main">x</p>
+                <input type="text" placeholder="&pm;" class="operation" id="plus-minus-2">
+                <input type="text" placeholder="c" class="coefficient" id="c">
+            </div>
+            <div class="button-div">
+                <button id="calcBtn">Solve</button>
+            </div>
+            <div id="resultDisplay">
+                <p class="results">x = or x =</p>
+            </div>
+        </div>
+    </body>
+</html>

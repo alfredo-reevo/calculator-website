@@ -1,0 +1,140 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    
+}
+
+
+@font-face {
+    font-family: mathFont;
+    src: url(font/lmroman10-regular-webfont.ttf);
+}
+
+nav {
+    font-family: 'Roboto Mono', monospace;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+
+}
+
+.head {
+    text-align: center;
+    font-family: monospace;
+}
+
+#variable {
+    font-family: mathFont;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexbox-container .template {
+    display: flex;
+    justify-content: center;
+    font-family: mathFont;
+}
+
+.plus, .main {
+    font-size: 32px;
+}
+
+.exponent {
+    font-size: 25px;
+}
+
+
+#home {
+    transition: ease 0.5s;
+}
+
+#home:hover {
+    font-size: 150%;
+    text-shadow: gray;
+}
+
+
+.coefficient {
+    border: none;
+    appearance: none;
+    color: rgb(128, 128, 128);
+    font-size: 32px;
+    padding: 8px;
+    width: 4%;
+    outline: none;
+    font-family: mathFont;
+    text-align: right;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-button {
+    border-radius: 5px;
+    background: rgb(34,193,195);
+    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: ease 0.5s;
+}
+
+.bg-button:hover {
+    font-size: 130%;
+    background: black;
+    color: white;
+}
+
+
+.operation {
+    border: none;
+    appearance: none;
+    color: black;
+    font-size: 32px;
+    padding: 8px;
+    width: 4%;
+    outline: none;
+    font-family: mathFont;
+    text-align: right;
+}
+
+input:focus::placeholder {
+    color:transparent;
+}
+
+input::placeholder {
+    transition: color 0.3s ease;
+}
+.button-div {
+    text-align: center;
+}
+
+.button-div button {
+    border-radius: 3px;
+    font-size: 16px;
+    font-family: 'Roboto Mono', monospace;
+    color: black;
+    background-color: white;
+    transition: ease 0.5s;
+}
+
+.button-div button:hover {
+    font-size: 120%;
+    background-color: black;
+    color: white;
+}
+
+#resultDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: mathFont;
+    font-size: 120%;
+    box-shadow: black;
+}
+
