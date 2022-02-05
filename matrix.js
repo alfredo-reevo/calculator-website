@@ -1,11 +1,6 @@
 import "./matrix.css"
 import * as THREE from "three"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import * as dat from "dat.gui"
-import { Camera, Sphere, WebGLBufferRenderer } from "three"
 
-// Debug
-const gui = new dat.GUI();
 
 // Canvas 
 const canvas = document.getElementById("#canv");
