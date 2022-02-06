@@ -1,4 +1,5 @@
-import * as THREE from "/build/three.module.js"
+//import * as THREE from "/Code/calculator-website/build/three.module.js"
+import * as THREE from "https://unpkg.com/three@0.127.0/build/three.module.js"
 import * as dat from "/node_modules/dat.gui/build/dat.gui.module.js"
 
 // Appearance Related //
