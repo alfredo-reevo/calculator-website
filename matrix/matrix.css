@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: mathFont;
+    src: url(../font/lmroman10-regular-webfont.ttf);
+}
+
+html,
+body {
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(24, 24, 24);
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+[data-tab-content] {
+    display: none;
+}
+
+.active[data-tab-content] {
+    display: block;
+    font-family: mathFont;
+    font-size: 140%;
+    min-width: fit-content;
+}
+
+[data-add-remove] {
+    margin: 5px;
+    max-width: 80px;
+    
+    
+}
+
+.tabs {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    border: 5px solid aliceblue;
+    max-width: max-content;
+}
+
+.tab {
+    cursor: pointer;
+    font-family: mathFont;
+    font-size: 120%;
+    padding: 5px;
+}
+
+
+.tab:hover {
+    background-color: #ddd;
+}
+
+#vector-heading {
+    text-align: center;
+    text-shadow: 1px 1px 2px grey;
+}
+
+#vector-inputs {
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    max-width: 45%;
+    padding: 5px;
+
+}
+
+#vector-inputs input {
+    width: 20px;
+    text-align: right;
+    font-family: mathFont;
+    font-size: 105%;
+    margin: 5px;
+}
+
+.container {
+    padding: 5px;
+    font-family: mathFont;
+    color: gainsboro;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute center;
+}
+
+
+
+/*
+#vector-inputs {
+    position: absolute;
+    font-family: mathFont;
+    font-size: 120%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    width: 250px;
+    border-radius: 5px;
+    outline: none;
+    margin: 10px;
+    
+}
+
+#vector-heading {
+    text-align: center;
+    font-size: 120%;
+}
+
+#vector-inputs input {
+    font-family: mathFont;
+    font-size: 90%;
+    width: 18px;
+    height: 18px;
+    outline: none;
+    padding: 1px;
+    margin: 1px;
+    text-align: right;
+}
+
