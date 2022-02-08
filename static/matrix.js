@@ -62,7 +62,8 @@ let n = 0;
 let activeVectors = [];
 
 function showVector() {
-
+    let removeVector = false;
+    
     var i = document.getElementById("vector-1_i");
     var j = document.getElementById("vector-1_j");
     var k = document.getElementById("vector-1_k");
@@ -79,19 +80,22 @@ function showVector() {
 
         // Line Vectors
     
-        const vPoints_1 = [];
-        vPoints_1.push(new THREE.Vector3(0, 0, 0));
-        vPoints_1.push(new THREE.Vector3(iComponent, jComponent, kComponent));
+        const vPoints = [];
+        vPoints.push(new THREE.Vector3(0, 0, 0));
+        vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
     
         
-        const v1_geometry = new THREE.BufferGeometry().setFromPoints(vPoints_1);
-        const v1_material = new THREE.LineBasicMaterial({color: 0x4AC5FF});
+        const vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
+        const vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
         
-        const vectorOne = new THREE.Line(v1_geometry, v1_material);
-        scene.add(vectorOne);
+        var vector = new THREE.Line(vectorGeometry, vectorMaterial);
+        scene.add(vector);
         n++
 
-        
+        if (removeVector == true) {
+            vectorGeometry.dispose();  
+            vectorMaterial.dispose();        
+        }
         
         
         // TODO - REMOVING VECTORS //    
@@ -176,44 +180,73 @@ function showVector() {
         }
     // Current Vector in Matrix Selection Box
     console.log("currVector", currVector);
-    var tempList = [];
     var columnVector = [];
 
 
-    console.log(currVector[0]["coords"]);
-    
-    let x = currVector[0]["coords"];
-
-    /* FINISH -
-        Double-digit numbers are interpreted as two separate values
-        e.g 12 => [1], [2]
+    /* The array columnVector holds the x, y and z coordinates of a vector in a 2D array, 
+        which emulates a 3x1 matrix
     */
+    columnVector.push([iComponent]);
+    columnVector.push([jComponent]);
+    columnVector.push([kComponent]);
 
-    for (let i = 0; i < x.length; i++) {
-        if (isNaN(parseFloat(x[i])) == true) {
+    console.log(columnVector);
 
-        }
-        else {
-            tempList.push([parseFloat(x[i])])
+    
+    let applyBtn = document.getElementById("apply-matrix-btn");
 
-        }
-    }
-    console.log(tempList);
+    applyBtn.addEventListener("click", () => {
+        // Matrix Calculations //
+        let matrixA = document.getElementById("matrix-a");
+        let valA = parseFloat(matrixA.value)
+        let matrixB = document.getElementById("matrix-b");
+        let valB = parseFloat(matrixB.value)
+        let matrixC = document.getElementById("matrix-c");
+        let valC = parseFloat(matrixC.value)
+    
+        let matrixD = document.getElementById("matrix-d");
+        let valD = parseFloat(matrixD.value)
+        let matrixE = document.getElementById("matrix-e");
+        let valE = parseFloat(matrixE.value)
+        let matrixF = document.getElementById("matrix-f");
+        let valF = parseFloat(matrixF.value)
+    
+        let matrixG = document.getElementById("matrix-g");
+        let valG = parseFloat(matrixG.value)
+        let matrixH = document.getElementById("matrix-h");
+        let valH = parseFloat(matrixH.value)
+        let matrixI = document.getElementById("matrix-i");
+        let valI = parseFloat(matrixI.value)
+    
+        let transformCoords = [];
+    
+        let transX = 0;
+        let transY = 0;
+        let transZ = 0;
+    
+        transX = ((valA * columnVector[0][0]) + (valB * columnVector[1][0]) + (valC * columnVector[2][0]));
+        transformCoords.push([transX]);
+        transY = ((valD * columnVector[0][0]) + (valE * columnVector[1][0]) + (valF * columnVector[2][0]));
+        transformCoords.push([transY]);
+        transZ = ((valG * columnVector[0][0]) + (valH * columnVector[1][0]) + (valI * columnVector[2][0]));
+        transformCoords.push([transZ]);
+        console.log(transformCoords);
 
-    // console.log(columnVector);
 
-    // Matrix Calculations //
-    let matrixA = document.getElementById("matrix-a");
-    let matrixB = document.getElementById("matrix-b");
-    let matrixC = document.getElementById("matrix-c");
+        transformCoords.push(new THREE.Vector3(0, 0, 0));
+        transformCoords.push(new THREE.Vector3(transX, transY, transZ));
+    
+        removeVector = true;
+        
+        const vectorGeometry = new THREE.BufferGeometry().setFromPoints(transformCoords);
+        const vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
+        
+        // vectorObj["coords"] = `(${transX}, ${transY}, ${transZ})`
 
-    let matrixD = document.getElementById("matrix-d");
-    let matrixE = document.getElementById("matrix-e");
-    let matrixF = document.getElementById("matrix-f");
+        var vector = new THREE.Line(vectorGeometry, vectorMaterial);
+        scene.add(vector);
 
-    let matrixG = document.getElementById("matrix-g");
-    let matrixH = document.getElementById("matrix-h");
-    let matrixI = document.getElementById("matrix-i");
+    })
 
 })
 }
