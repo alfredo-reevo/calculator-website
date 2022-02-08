@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: mathFont;
+    src: url(../font/lmroman10-regular-webfont.ttf);
+}
+
+html,
+body {
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(24, 24, 24);
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+[data-tab-content] {
+    display: none;
+}
+
+.active[data-tab-content] {
+    display: block;
+    font-family: mathFont;
+    font-size: 140%;
+    min-width: fit-content;
+}
+
+[data-add-remove] {
+    margin: 5px;
+    max-width: 80px;
+}
+
+.tab-container {
+    margin: 30px;
+}
+
+
+.tabs {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    margin-top: -15px;
+    margin-left: 25px;
+    padding: 0;
+    border: 5px solid rgb(51, 51, 51);
+    box-shadow: -5px 5px 3px black;
+    width: 400px;
+    justify-content: center;
+}
+
+
+
+.tab {
+    cursor: pointer;
+    font-family: mathFont;
+    font-size: 150%;
+    width: 200px;
+    padding: 5px;
+    background-color: rgb(245, 245, 245);
+    transition: ease 0.5s;
+}
+
+
+.tab:hover {
+    background-color: #ddd;
+}
+
+.tab:active {
+    background-color: rgb(189, 255, 255);
+}
+
+#vector-heading {
+    text-align: center;
+    text-shadow: 1px 1px 2px grey;
+}
+
+.vector-label {
+    margin-top: 50px;
+    margin-left: 15px;
+}
+
+.vector-label::after {
+    content: "";
+    display: block;
+    background-color: rgb(51, 51, 51);
+    width: 130px;
+    height: 1px;
+}
+
+.active#vector-inputs {
+    display: grid;
+    background-color: white;
+    width: 450px;
+    padding: 5px;
+    position: absolute;
+    border-radius: 5px;
+}
+
+#v1-button {
+    display: flex;
+    margin-left: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    background-color: white;
+    transition: ease 0.2s;
+}
+
+#v1-button:hover {
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(51, 51, 51);
+}
+
+#vector-inputs input {
+    width: 25px;
+    text-align: right;
+    font-family: mathFont;
+    font-size: 105%;
+    margin: 5px;
+    border: none;
+    background: none;
+}
+
+
+.active#matrix-inputs {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    background-color: white;
+    width: 450px;
+    padding: 5px;
+    height: 180px;
+}
+
+
+
+#matrix-heading {
+    margin-top: 50px;
+    position: absolute;
+}
+
+#vector-select {
+    height: 20px;
+    margin-top: 6em;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.row input {
+    background: none;
+    border: none;
+    outline: none;
+}
+
+#matrix-input {
+    margin-top: 2.5em;
+    margin-left: 8.7em;
+    margin-bottom: 1em;
+    position: absolute;
+}
+
+#bracket-left {
+    font-size: 80px;
+    position: absolute;
+    margin-left: 2.1em;
+    margin-top: 0.49em;
+}
+
+#bracket-right {
+    font-size: 80px;
+    position: absolute;
+    margin-left: 3.1em;
+    margin-top: 0.49em;
+}
+
+.apply.btn.container {
+    justify-content: right;
+}
+
+#apply-matrix-btn {
+    margin-left: 18em;
+    margin-top: 7em;
+    font-family: mathFont;
+    font-size: 20px;
+    text-align: center;
+    padding: 2px;
+    position: absolute;
+}
+
+#right-bracket {
+    margin-left: 2em;
+    font-size: 50px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    
+}
+
+#left-bracket {
+    display: flex;
+    justify-content: left;
+    font-size: 50px;
+}
+
+
+
+#matrix-input input {
+    font-family: mathFont;
+    font-size: 20px;
+    width: 20px;
+    text-align: center;
+    border: none
+}
+
+.apply-btn-container {
+    position: absolute;
+    margin-left: 25px;
+}
+
+.vector-container {
+    position: absolute;
+    font-family: mathFont;
+    margin-top: 20em;
+    padding: 0;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#active-vectors {
+    margin-left: 5px;
+    font-size: 18px;
+    padding: 5px;
+}
+
+#av-title {
+    padding: 5px;
+}
+
+#active-vectors ol {
+    list-style: none;
+}
+
+#remove-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+#vector-remove-button {    
+    padding: 3px;
+
+}
+
+.container {
+    padding: 5px;
+    font-family: mathFont;
+    color: gainsboro;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute center;
+}
+
+
+
+/*
+#vector-inputs {
+    position: absolute;
+    font-family: mathFont;
+    font-size: 120%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    width: 250px;
+    border-radius: 5px;
+    outline: none;
+    margin: 10px;
+    
+}
+
+#vector-heading {
+    text-align: center;
+    font-size: 120%;
+}
+
+#vector-inputs input {
+    font-family: mathFont;
+    font-size: 90%;
+    width: 18px;
+    height: 18px;
+    outline: none;
+    padding: 1px;
+    margin: 1px;
+    text-align: right;
+}
+

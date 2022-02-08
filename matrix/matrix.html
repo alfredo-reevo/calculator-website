@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale = 1.0">
         <title>Matrix Visualiser</title>
-        <link rel="stylesheet" href="/matrix/matrix.css">
+        <link rel="stylesheet" href="/static/matrix.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
@@ -15,41 +15,75 @@
             <h2>Visualise vector transformations</h2>
         </div>
 
-        <div class="tabs">
-            <button data-tab-target="#vector-inputs" class="active tab">Vectors</button>
-            <button data-tab-target="#matrix-inputs" class="tab">Matrix</button>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button data-tab-target="#vector-inputs" class="active tab">Vector</button>
+                <button data-tab-target="#matrix-inputs" class="tab">Matrix</button>
+            </div>
+            <div class="tab-content">
+                <div id="vector-inputs" data-tab-content class="active">
+                    <label class="vector-label">Input Vector:</label>
+                    <p id="vector-1">
+                        <input class="vector-props" id="vector-1_i" placeholder="a"> i
+                        <input class="vector-props" id="vector-1_j" placeholder="b"> j
+                        <input class="vector-props" id="vector-1_k" placeholder="c"> k
+                        <button id="v1-button">Submit</button>
+                    </p>                    
+                </div>
+                    <div id="matrix-inputs" data-tab-content>
+                        <p id="matrix-heading"><em>Vector:</em></p>
+                        <select id="vector-select">
+                            <option>None</option>
+                        </select>
+                        <div id="bracket-left">
+                            (
+                        </div>
+                        <div id="bracket-right">
+                            )
+                        </div>
+
+                        <div id="matrix-input">
+                            <div class="row">                                
+                                <div><input class="matrix-inp" id="matrix-a" placeholder="a"></div>
+                                <div><input class="matrix-inp" id="matrix-b" placeholder="b"></div>                              
+                                <div><input class="matrix-inp" id="matrix-c" placeholder="c"></div>                    
+                            </div>
+                            <div class="row">
+                                <div><input class="matrix-inp" id="matrix-d" placeholder="d"></div>
+                                <div><input class="matrix-inp" id="matrix-e" placeholder="e"></div>
+                                <div><input class="matrix-inp" id="matrix-f" placeholder="f"></div>
+                            </div>
+                            <div class="row">
+                                <div><input class="matrix-inp" id="matrix-g" placeholder="g"></div>
+                                <div><input class="matrix-inp" id="matrix-h" placeholder="h"></div>
+                                <div><input class="matrix-inp" id="matrix-i" placeholder="i"></div>
+                            </div>
+                        </div>
+                        <div class="apply-btn-container">
+                            <button id="apply-matrix-btn">Apply</button>
+                        </div>
+            </div>
         </div>
+        <div class="vector-container">
+            <div id="av-title">
+                <h2>Active Vectors:</h2>
+            </div>
+            <div id="active-vectors">
+                <ol id="vector-list">
 
+                </ol>
+                <label>Remove Vector:</label>
+                <select id="remove-vector">
 
-        <div class="tab-content">
-           <div id="vector-inputs" data-tab-content class="active">
-                <p id="vector-heading"><em>Vectors</em></p>
-                <label>Vector 1</label>
-                <p id="vector-1">
-                    <input class="vector-props" id="vector-1_i"> i
-                    <input class="vector-props" id="vector-1_j"> j
-                    <input class="vector-props" id="vector-1_k"> k
-                </p>
-               
-                <button class="add-vector-button" id="add-vector" data-add-remove>+ Add</button>
-                <button class="remove-vector-button" id="remove-vector" data-add-remove>- Remove</button>
-
-
-                <button id="v1-button">Submit</button>
-           </div>
-           <div id="matrix-inputs" data-tab-content>
-                <p id="matrix-heading"><em>Matrix</em></p>
-
-                <select id="vector-select">
-                    <option value="opt-1">tempVector 1</option>
-                    <option value="opt-2">tempVector 2</option>
-                    <option value="opt-3">tempVector 3</option>
                 </select>
-           </div>
+            </div>
+            <div id="remove-button-container">
+                <button onclick="removeVector();" id="vector-remove-button">Remove</button>
+            </div>
         </div>
-
         <canvas id="canv"></canvas>
 
-        <script type="module" src="/matrix/matrix.js"></script>
+        <script type="module" src="/static/matrix.js"></script>
     </body>
 </html>
