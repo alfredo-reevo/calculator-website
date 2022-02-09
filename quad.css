@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: mathFont;
-    src: url(font/lmroman10-regular-webfont.ttf);
+    src: url("font/lmroman10-regular-webfont.ttf");
 }
 
 nav {
