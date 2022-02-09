@@ -22,7 +22,7 @@ tabs.forEach(tab => {
 
 
 // GUI
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 
 // Canvas 
 const canvas = document.querySelector("#canv");
@@ -294,7 +294,7 @@ scene.add(zAxis)
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // | GUI | //
-
+/*
 const cameraPosition = gui.addFolder("CameraPosition")
 const cameraRotation = gui.addFolder("CameraRotation")
 
@@ -307,7 +307,7 @@ cameraPosition.add(camera.position, "z").min(-30).max(30).step(0.01)
 cameraRotation.add(camera.rotation, "x").min(-10).max(10).step(0.0001)
 cameraRotation.add(camera.rotation, "y").min(-5).max(10).step(0.0001)
 cameraRotation.add(camera.rotation, "z").min(-30).max(30).step(0.0001)
-
+*/
 
 
 window.addEventListener("resize", () => {
