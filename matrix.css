@@ -262,7 +262,7 @@ body {
 }
 
 .container {
-    padding: 5px;
+    padding: 2px;
     font-family: mathFont;
     color: gainsboro;
     display: flex;
@@ -271,3 +271,9 @@ body {
     position: absolute center;
 }
 
+.container h3 {
+    font-size: 15px;
+    color: grey;
+    position: absolute;
+    margin-left: 1600px;
+}
