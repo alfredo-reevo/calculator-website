@@ -142,12 +142,14 @@ body {
 
 #matrix-heading {
     margin-top: 50px;
+    margin-left: 10px;
     position: absolute;
 }
 
 #vector-select {
     height: 20px;
-    margin-top: 6em;
+    margin-top: 6.6em;
+    margin-left: 1.3em;
 }
 
 .row {
@@ -212,14 +214,20 @@ body {
     font-size: 50px;
 }
 
-
-
 #matrix-input input {
     font-family: mathFont;
     font-size: 20px;
     width: 20px;
     text-align: center;
     border: none
+}
+
+#matrix-heading::after {
+    content: "";
+    display: block;
+    background-color: rgb(51, 51, 51);
+    width: 70px;
+    height: 1px;
 }
 
 .apply-btn-container {
