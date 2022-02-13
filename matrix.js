@@ -131,17 +131,24 @@ function vectorCreate() {
         
         // Parent Vector List
         const vectorList = document.getElementById("vector-list");
+        var removeVector = document.getElementById("remove-vector");
         
         // Create a new list item (e.g: Vector 1: (5, 4, 3))
         let vectorItem = document.createElement("li");
+        let vectorSelect = document.createElement("option");
         vectorItem.textContent = (`${vectorObj["name"]}: ${vectorObj["coords"]}`);
         
+        vectorSelect.text = vectorObj["name"];
+        vectorSelect.value = `vector-${n}`;
+
+
         vectorList.appendChild(vectorItem);
+        removeVector.appendChild(vectorSelect);
 
 
         // Matrix Vector Select
         
-        var vectorOpt = document.createElement("option");
+        let vectorOpt = document.createElement("option");
         vectorOpt.text = vectorObj["name"];
         vectorOpt.value = `vector-${n}`;
         
@@ -150,6 +157,20 @@ function vectorCreate() {
         matrixSelect.appendChild(vectorOpt);
 
 }
+    /*
+        let removeButton = document.getElementById("remVector");
+        removeButton.addEventListener("click", () => {
+            var removeVector = document.getElementById("remove-vector");
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value)
+            console.log("current vector in vectorRem: ", currVector)
+            
+            const object = scene.getObjectByProperty(removeVector.textContent);
+
+            object.geometry.dispose();
+            object.material.dispose();
+            scene.remove( object );
+        })
+    */
 
     // Matrix Transformations
 
