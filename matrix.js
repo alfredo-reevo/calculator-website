@@ -77,6 +77,10 @@ function vectorCreate() {
         jComponent = parseFloat(jComponent);
         kComponent = parseFloat(kComponent);
         
+        var vectorGeometry;
+        var vectorMaterial;
+        var vector;
+
         if (iComponent !== NaN && jComponent != NaN && kComponent != NaN) {               
 
             // Line Vectors
@@ -86,8 +90,8 @@ function vectorCreate() {
             vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
         
             
-            const vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
-            const vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
+            var vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
+            var vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
             
             var vector = new THREE.Line(vectorGeometry, vectorMaterial);
             scene.add(vector);
@@ -109,23 +113,20 @@ function vectorCreate() {
         else { 
         };      
         
-        
         let vectorObj = {
             name: `Vector ${n}`,
             value: `vector-${n}`,
             coords: `(${iComponent}, ${jComponent}, ${kComponent})`,
+            geo: vectorGeometry,
+            mat: vectorMaterial,
+            mesh: vector,
+            index: n,
             x: parseFloat(iComponent),
             y: parseFloat(jComponent),
             z: parseFloat(kComponent)
         };
         
-        activeVectors.push(vectorObj);
-        
-        
-        console.warn("added ", {vectorObj});
-        console.log("Active Vectors: ", activeVectors);
-        
-        
+        activeVectors.push(vectorObj);      
         
         // -- ACTIVE VECTOR LIST -- //
         
@@ -137,7 +138,9 @@ function vectorCreate() {
         let vectorItem = document.createElement("li");
         let vectorSelect = document.createElement("option");
         vectorItem.textContent = (`${vectorObj["name"]}: ${vectorObj["coords"]}`);
-        
+        vectorItem.id = `vector-${n}`;
+        console.log(vectorItem);
+
         vectorSelect.text = vectorObj["name"];
         vectorSelect.value = `vector-${n}`;
 
@@ -156,21 +159,72 @@ function vectorCreate() {
         
         matrixSelect.appendChild(vectorOpt);
 
+
+
 }
-    /*
+
+        // REMOVAL OF VECTORS //
+
         let removeButton = document.getElementById("remVector");
         removeButton.addEventListener("click", () => {
             var removeVector = document.getElementById("remove-vector");
             let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value)
-            console.log("current vector in vectorRem: ", currVector)
+            console.log("current vector to remove: ", currVector)
             
-            const object = scene.getObjectByProperty(removeVector.textContent);
+            let currGeometry = currVector[0]["geo"];
+            let currMaterial = currVector[0]["mat"];
+            let currMesh = currVector[0]["mesh"];
 
-            object.geometry.dispose();
-            object.material.dispose();
-            scene.remove( object );
+            currGeometry.dispose();
+            currMaterial.dispose();
+            scene.remove( currMesh );
+            
+            // Remove from matrix selection
+            matrixRemove();
+
+            // Remove from vector selection
+            listRemove();
+            
+            // Remove from remove options
+            selectRemove();
+
         })
-    */
+
+        function matrixRemove() {
+            var removeVector = document.getElementById("remove-vector");
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value)
+            
+            // Remove from matrix selection
+            let matrixSelect = document.getElementById("vector-select");
+            for (let i = 0; i < matrixSelect.length; i++) {                
+                if (matrixSelect[i].value == currVector[0]["value"]) {
+                    matrixSelect.removeChild(matrixSelect[i]);
+                }
+            };
+        }
+
+        function listRemove() {
+            let vectorList = document.getElementById("vector-list");            
+            var removeVector = document.getElementById("remove-vector");
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value);
+            console.log("listRemove() currVector: ", currVector);
+            let listItem = document.getElementById(currVector[0]["value"]);
+            console.log(listItem);
+            
+            vectorList.removeChild(listItem);
+
+        }
+
+        function selectRemove() {
+            var removeVector = document.getElementById("remove-vector");
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value);
+
+            for (let i = 0; i < removeVector.length; i++) {
+                if (removeVector[i].value == currVector[0]["value"]) {
+                    removeVector.removeChild(removeVector[i])
+                }
+            }
+        }
 
     // Matrix Transformations
 
@@ -248,19 +302,41 @@ function vectorCreate() {
                 const vectorList = document.getElementById("vector-list");
                 let transAppend = document.createElement("li");
                 transAppend.textContent = (`${currVector[0]["name"]} (Transform): (${transX}, ${transY}, ${transZ})`);
+                transAppend.id = `${currVector[0]["value"]}-transform`;
                 
                 let tVectorObj = {
                     name: `${currVector[0]["name"]} (Transform)`,
                     value: `${currVector[0]["value"]}-transform`,
                     coords: `(${transX}, ${transY}, ${transZ})`,
+                    geo: transGeometry,
+                    mat: transMaterial,
+                    mesh: transVector,
                     x: parseFloat(transX),
                     y: parseFloat(transY),
                     z: parseFloat(transZ)
                 };
+                
+                var removeVector = document.getElementById("remove-vector");
+
+                let vectorSelect = document.createElement("option");
+                vectorSelect.text = tVectorObj["name"];
+                vectorSelect.value = tVectorObj["value"];
             
+                removeVector.appendChild(vectorSelect);
+
                 activeVectors.push(tVectorObj);
-            
+
                 vectorList.appendChild(transAppend);
+
+                // Matrix Vector Select
+        
+                let vectorOpt = document.createElement("option");
+                vectorOpt.text = tVectorObj["name"];
+                vectorOpt.value = tVectorObj["value"];
+        
+                let matrixSelect = document.getElementById("vector-select");
+        
+                matrixSelect.appendChild(vectorOpt);
             
                 transformation = false;
             };
