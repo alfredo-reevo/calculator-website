@@ -54,7 +54,7 @@ renderer.render(scene, camera);
 
 // - Vector 1 - //
 
-let calcBtn = document.getElementById("v1-button");
+let calcBtn = document.getElementById("v-button");
 
 calcBtn.addEventListener("click", vectorCreate);
 
@@ -65,9 +65,9 @@ let n = 0;
 var activeVectors = [];
 function vectorCreate() {
         
-        var i = document.getElementById("vector-1_i");
-        var j = document.getElementById("vector-1_j");
-        var k = document.getElementById("vector-1_k");
+        var i = document.getElementById("vector_i");
+        var j = document.getElementById("vector_j");
+        var k = document.getElementById("vector_k");
         
         let iComponent = i.value;
         let jComponent = j.value;
@@ -169,7 +169,7 @@ function vectorCreate() {
         removeButton.addEventListener("click", () => {
             var removeVector = document.getElementById("remove-vector");
             let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value)
-            console.log("current vector to remove: ", currVector)
+            // console.log("current vector to remove: ", currVector)
             
             let currGeometry = currVector[0]["geo"];
             let currMaterial = currVector[0]["mat"];
@@ -207,9 +207,7 @@ function vectorCreate() {
             let vectorList = document.getElementById("vector-list");            
             var removeVector = document.getElementById("remove-vector");
             let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value);
-            console.log("listRemove() currVector: ", currVector);
-            let listItem = document.getElementById(currVector[0]["value"]);
-            console.log(listItem);
+            let listItem = document.getElementById(removeVector.value);
             
             vectorList.removeChild(listItem);
 
