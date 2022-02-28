@@ -319,6 +319,8 @@ function vectorCreate() {
                 let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeItem.value);
                 let listItem = document.getElementById(removeItem.value);
                 
+                console.log("listItem: ", listItem);
+                
                 itemList.removeChild(listItem);
             }
             else if (item.text == "point") {
@@ -355,21 +357,16 @@ function vectorCreate() {
 
     // Matrix Transformations
 
-        let transformation = false;
-
-        let matrixSelect = document.getElementById("vector-select");
         let applyBtn = document.getElementById("apply-matrix-btn");
         var columnVector = [];
         
+
+        let transN = 0;
         applyBtn.addEventListener("click", () => {            
-            //activeVectors = [];
+            let matrixSelect = document.getElementById("vector-select");
             columnVector = [];
                     
-            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === matrixSelect.value)
-                // Current Vector in Matrix Selection Box
-            console.log("Current Vector: ", currVector[0]);
-            console.log("Active Vectors: ", activeVectors);
-                    
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === matrixSelect.value)            
                         
             /* The array columnVector holds the x, y and z coordinates of a vector in a 2D array, 
                 which emulates a 3x1 matrix
@@ -416,20 +413,20 @@ function vectorCreate() {
             transformCoords.push(new THREE.Vector3(0, 0, 0));
             transformCoords.push(new THREE.Vector3(transX, transY, transZ));            
                     
-            transformation = true;
-                    
-            if (transformation == true) {
-                const transGeometry = new THREE.BufferGeometry().setFromPoints(transformCoords);
-                const transMaterial = new THREE.LineBasicMaterial({color: 0xFF8B00});
+
+            const transGeometry = new THREE.BufferGeometry().setFromPoints(transformCoords);
+            const transMaterial = new THREE.LineBasicMaterial({color: 0xFF8B00});
                 
-                var transVector = new THREE.Line(transGeometry, transMaterial);
-                scene.add(transVector);
-                
-                // Create a new list item for transformed vector (e.g: Vector 1 (Transform): (5, 4, 3))
-                const vectorList = document.getElementById("vector-list");
-                let transAppend = document.createElement("li");
-                transAppend.textContent = (`${currVector[0]["name"]} (Transform): (${transX}, ${transY}, ${transZ})`);
-                transAppend.id = `${currVector[0]["value"]}-transform`;
+            var transVector = new THREE.Line(transGeometry, transMaterial);
+            scene.add(transVector);
+
+            transN++;
+            
+            // Create a new list item for transformed vector (e.g: Vector 1 (Transform): (5, 4, 3))
+            const vectorList = document.getElementById("vector-list");
+            let transAppend = document.createElement("li");
+            transAppend.textContent = (`${currVector[0]["name"]} (Transform)[${transN}]: (${transX}, ${transY}, ${transZ})`);     
+            transAppend.id = (`${currVector[0]["value"]}-transform`);
                 
                 let tVectorObj = {
                     name: `${currVector[0]["name"]} (Transform)`,
@@ -446,8 +443,9 @@ function vectorCreate() {
                 var removeVector = document.getElementById("remove-vector");
 
                 let vectorSelect = document.createElement("option");
-                vectorSelect.text = tVectorObj["name"];
+                vectorSelect.text = "vector";
                 vectorSelect.value = tVectorObj["value"];
+                vectorSelect.label = tVectorObj["name"]
             
                 removeVector.appendChild(vectorSelect);
 
@@ -461,13 +459,11 @@ function vectorCreate() {
                 vectorOpt.text = tVectorObj["name"];
                 vectorOpt.value = tVectorObj["value"];
         
-                let matrixSelect = document.getElementById("vector-select");
         
                 matrixSelect.appendChild(vectorOpt);
             
-                transformation = false;
-            };
-        });
+            });
+        
 
 // -- Grid Plane -- //
 
