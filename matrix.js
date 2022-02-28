@@ -243,8 +243,8 @@ function vectorCreate() {
             var removeItem = document.getElementById("remove-vector");
             
             let item = removeItem.options[removeItem.selectedIndex];
-            console.log(item);
-            
+            console.log("Item: ", item);
+        
             if (item.text == "vector") {
         
                 let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeItem.value)
@@ -254,18 +254,35 @@ function vectorCreate() {
                 let currMaterial = currVector[0]["mat"];
                 let currMesh = currVector[0]["mesh"];
 
+                console.log("currGeometry: ", currGeometry);
+                console.log("currMaterial: ", currMaterial)
+                console.log("currMesh: ", currMesh)
+
                 currGeometry.dispose();
+                console.log("Geometry: ", currGeometry, "disposed!")
                 currMaterial.dispose();
+                console.log("Material: ", currMaterial, "disposed!")
                 scene.remove( currMesh );
+                console.log("Mesh: ", currMesh, "deleted!")
+                
                 
                 // Remove from matrix selection
                 matrixRemove();
-
+                
                 // Remove from vector selection
                 listRemove();
                 
                 // Remove from remove options
                 selectRemove();
+                
+                console.warn("-- UPDATING ACTIVEVECTORS ARRAY --")
+                console.log("value: ", currVector[0].value);
+                
+                activeVectors = activeVectors.filter(vectorObj => vectorObj["value"] != currVector[0].value)
+                console.log("updated activeVectors: ", activeVectors);
+                
+                
+                // currVector = [];
             }
             else if (item.text == "point") {
                 let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value)
@@ -374,9 +391,7 @@ function vectorCreate() {
             columnVector.push([currVector[0]["x"]]);
             columnVector.push([currVector[0]["y"]]);
             columnVector.push([currVector[0]["z"]]);
-                        
-            console.log("columnVector: ", columnVector);
-                    
+                                            
                 // Matrix Calculations //
             let matrixA = document.getElementById("matrix-a");
             let valA = parseFloat(matrixA.value)
@@ -409,7 +424,8 @@ function vectorCreate() {
             transY = ((valD * columnVector[0][0]) + (valE * columnVector[1][0]) + (valF * columnVector[2][0]));
             transZ = ((valG * columnVector[0][0]) + (valH * columnVector[1][0]) + (valI * columnVector[2][0]));
                     
-                    
+
+            
             transformCoords.push(new THREE.Vector3(0, 0, 0));
             transformCoords.push(new THREE.Vector3(transX, transY, transZ));            
                     
@@ -461,8 +477,11 @@ function vectorCreate() {
         
         
                 matrixSelect.appendChild(vectorOpt);
+
+                console.log(activeVectors);
             
             });
+
         
 
 // -- Grid Plane -- //

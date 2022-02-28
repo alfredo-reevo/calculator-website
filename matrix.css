@@ -155,7 +155,10 @@ body {
     word-spacing: -7px;
 }
 
-
+#point input {
+    width: 30px;
+    margin-right: 10px;
+}
 
 #point-button:hover {
     border-radius: 5px;
