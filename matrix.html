@@ -30,7 +30,16 @@
                         <input class="vector-props" id="vector_j" placeholder="b"> j
                         <input class="vector-props" id="vector_k" placeholder="c"> k
                         <button id="v-button">Submit</button>
-                    </p>                    
+                    </p>
+                    <label class="points-label">Points</label>                    
+                    <p id="point">
+                        (
+                        <input class="point-input" id="point-x" placeholder="x">,
+                        <input class="point-input" id="point-y" placeholder="y">,
+                        <input class="point-input" id="point-z" placeholder="z "> 
+                        )
+                        <button id="point-button">Submit</button>
+                    </p>
                 </div>
                     <div id="matrix-inputs" data-tab-content>
                         <p id="matrix-heading"><em>Vector:</em></p>
@@ -68,7 +77,7 @@
         </div>
         <div class="vector-container">
             <div id="av-title">
-                <h2>Active Vectors:</h2>
+                <label>Active Vectors/Points:</label>
             </div>
             <div id="active-vectors">
                 <ol id="vector-list">

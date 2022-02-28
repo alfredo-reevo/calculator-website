@@ -128,6 +128,40 @@ body {
 }
 
 
+.points-label {
+    margin-left: 15px;
+}
+
+.points-label::after {
+    content: "";
+    display: block;
+    background-color: rgb(51, 51, 51);
+    width: 65px;
+    height: 1px;
+}
+
+#point-button {
+    display: flex;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    background-color: white;
+    transition: ease 0.2s;
+}
+
+#point {
+    margin-left: 12px;
+    word-spacing: -7px;
+}
+
+
+
+#point-button:hover {
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(51, 51, 51);
+}
+
 .active#matrix-inputs {
     display: flex;
     position: absolute;
@@ -253,8 +287,10 @@ body {
 }
 
 #av-title {
-    padding: 5px;
+    padding: 8px;
+    font-size: 24px;
 }
+
 
 #active-vectors ol {
     list-style: none;
@@ -282,7 +318,7 @@ body {
 }
 
 .container h3 {
-    font-size: 15px;
+    font-size: 1px;
     color: grey;
     position: absolute;
     margin-left: 1600px;

@@ -5,6 +5,22 @@ import { OrbitControls } from 'https://cdn.skypack.dev/three@0.128.0/examples/js
 // import * as dat from "/node_modules/dat.gui/build/dat.gui.module.js";
 
 
+// Classes (ADDED AFTER VECTORS WERE FIRST INTRODUCED)
+
+class PointOBJ {
+    constructor(name, value, type, geo, mat, mesh, x, y, z) {
+        this.x = x
+        this.y = y
+        this.z = z
+        this.name = name
+        this.value = value
+        this.type = type
+        this.geo = geo
+        this.mat = mat
+        this.mesh = mesh
+    }
+}
+
 
 // Appearance Related //
 
@@ -50,15 +66,70 @@ renderer.render(scene, camera);
 
 // - Geometry - //
 
-// DEFINING VECTORS //
+// DEFINING VECTORS & POINTS //
 
-// - Vector 1 - //
+// - Points - //
 
-let calcBtn = document.getElementById("v-button");
+let pointBtn = document.getElementById("point-button")
+pointBtn.addEventListener("click", pointCreate);
 
-calcBtn.addEventListener("click", vectorCreate);
+let pointN = 0;
 
-let n = 0;
+var activePoints = [];
+function pointCreate() {
+    var x = document.getElementById("point-x").value;
+    var y = document.getElementById("point-y").value;
+    var z = document.getElementById("point-z").value;
+
+    var pointGeometry;
+    var pointMaterial;
+    var point;
+
+    if (x != NaN && y != NaN && z != NaN) {
+        
+        // Rendering of Points // 
+        var pointColour = new THREE.Color(0x49FF00)
+        pointGeometry = new THREE.SphereGeometry(0.125, 16, 12);
+
+        pointMaterial = new THREE.MeshBasicMaterial({color: pointColour} );
+        
+        point = new THREE.Mesh(pointGeometry, pointMaterial);
+        point.position.set(x,y,z);
+        scene.add(point)
+        pointN++
+    }
+
+    var newPoint = new PointOBJ(`Point ${pointN}`, `point-${pointN}`,
+    "point", pointGeometry, pointMaterial, point, x, y, z)
+
+    activePoints.push(newPoint);
+
+    // Add to Active Vectors/Points
+    const pointList = document.getElementById("vector-list");
+    const removePoint = document.getElementById("remove-vector");
+
+    let pointItem = document.createElement("li");
+    let pointSelect = document.createElement("option");
+    pointItem.textContent = (`${newPoint.name}: (${x}, ${y}, ${z})`);
+    pointItem.id = newPoint.value;
+    console.log(pointItem)
+    console.log(newPoint.type);
+
+    pointSelect.text = newPoint.type;
+    pointSelect.value = newPoint.value;
+    pointSelect.label = newPoint.name;
+
+    pointList.appendChild(pointItem);
+    removePoint.appendChild(pointSelect);
+}
+
+// - Vectors - //
+
+let vecBtn = document.getElementById("v-button");
+
+vecBtn.addEventListener("click", vectorCreate);
+
+let vectorN = 0;
 
 // Vector List //
 
@@ -90,12 +161,12 @@ function vectorCreate() {
             vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
         
             
-            var vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
-            var vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
+            vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
+            vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
             
-            var vector = new THREE.Line(vectorGeometry, vectorMaterial);
+            vector = new THREE.Line(vectorGeometry, vectorMaterial);
             scene.add(vector);
-            n++;
+            vectorN++;
             
             // ArrowHelper Vectors
             /*
@@ -109,18 +180,17 @@ function vectorCreate() {
             scene.add(vectorOne);
             */
         }
-        
-        else { 
-        };      
+            
         
         let vectorObj = {
-            name: `Vector ${n}`,
-            value: `vector-${n}`,
+            name: `Vector ${vectorN}`,
+            value: `vector-${vectorN}`,
             coords: `(${iComponent}, ${jComponent}, ${kComponent})`,
+            type: "vector",
             geo: vectorGeometry,
             mat: vectorMaterial,
             mesh: vector,
-            index: n,
+            index: vectorN,
             x: parseFloat(iComponent),
             y: parseFloat(jComponent),
             z: parseFloat(kComponent)
@@ -138,11 +208,13 @@ function vectorCreate() {
         let vectorItem = document.createElement("li");
         let vectorSelect = document.createElement("option");
         vectorItem.textContent = (`${vectorObj["name"]}: ${vectorObj["coords"]}`);
-        vectorItem.id = `vector-${n}`;
+        vectorItem.id = `vector-${vectorN}`;
         console.log(vectorItem);
 
-        vectorSelect.text = vectorObj["name"];
-        vectorSelect.value = `vector-${n}`;
+        vectorSelect.text = "vector";
+        vectorSelect.value = `vector-${vectorN}`;
+        vectorSelect.label = vectorObj["name"]
+        
 
 
         vectorList.appendChild(vectorItem);
@@ -153,7 +225,7 @@ function vectorCreate() {
         
         let vectorOpt = document.createElement("option");
         vectorOpt.text = vectorObj["name"];
-        vectorOpt.value = `vector-${n}`;
+        vectorOpt.value = `vector-${vectorN}`;
         
         let matrixSelect = document.getElementById("vector-select");
         
@@ -163,40 +235,73 @@ function vectorCreate() {
 
 }
 
-        // REMOVAL OF VECTORS //
+        // REMOVAL OF VECTORS AND POINTS //
 
         let removeButton = document.getElementById("remVector");
-        removeButton.addEventListener("click", () => {
-            var removeVector = document.getElementById("remove-vector");
-            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value)
-            // console.log("current vector to remove: ", currVector)
+        removeButton.addEventListener("click", () => {        
             
-            let currGeometry = currVector[0]["geo"];
-            let currMaterial = currVector[0]["mat"];
-            let currMesh = currVector[0]["mesh"];
-
-            currGeometry.dispose();
-            currMaterial.dispose();
-            scene.remove( currMesh );
+            var removeItem = document.getElementById("remove-vector");
             
-            // Remove from matrix selection
-            matrixRemove();
-
-            // Remove from vector selection
-            listRemove();
+            let item = removeItem.options[removeItem.selectedIndex];
+            console.log(item);
             
-            // Remove from remove options
-            selectRemove();
+            if (item.text == "vector") {
+        
+                let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeItem.value)
+                console.log("current vector to remove: ", currVector)
+                
+                let currGeometry = currVector[0]["geo"];
+                let currMaterial = currVector[0]["mat"];
+                let currMesh = currVector[0]["mesh"];
 
-        })
+                currGeometry.dispose();
+                currMaterial.dispose();
+                scene.remove( currMesh );
+                
+                // Remove from matrix selection
+                matrixRemove();
+
+                // Remove from vector selection
+                listRemove();
+                
+                // Remove from remove options
+                selectRemove();
+            }
+            else if (item.text == "point") {
+                let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value)
+
+                console.log(currPoint);
+                /*
+                console.log("geometry: ", currPoint[0].geo)
+                console.log("material: ", currPoint[0].mat)
+                console.log("mesh: ", currPoint[0].mesh)
+                */
+
+                let currGeometry = currPoint[0].geo;
+                let currMaterial = currPoint[0].mat;
+                let currMesh = currPoint[0].mesh;
+
+                currGeometry.dispose();
+                currMaterial.dispose();
+                scene.remove(currMesh);
+
+                listRemove();
+
+                selectRemove();
+            }
+
+    })
 
         function matrixRemove() {
-            var removeVector = document.getElementById("remove-vector");
-            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value)
+            var removeItem = document.getElementById("remove-vector");
+            
+
+            
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeItem.value)
             
             // Remove from matrix selection
             let matrixSelect = document.getElementById("vector-select");
-            for (let i = 0; i < matrixSelect.length; i++) {                
+            for (let i = 0; i < matrixSelect.length; i++) {               
                 if (matrixSelect[i].value == currVector[0]["value"]) {
                     matrixSelect.removeChild(matrixSelect[i]);
                 }
@@ -204,25 +309,49 @@ function vectorCreate() {
         }
 
         function listRemove() {
-            let vectorList = document.getElementById("vector-list");            
-            var removeVector = document.getElementById("remove-vector");
-            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value);
-            let listItem = document.getElementById(removeVector.value);
-            
-            vectorList.removeChild(listItem);
+            let itemList = document.getElementById("vector-list");           
+            var removeItem = document.getElementById("remove-vector");
 
+            let item = removeItem.options[removeItem.selectedIndex];
+
+            if (item.text == "vector") {
+
+                let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeItem.value);
+                let listItem = document.getElementById(removeItem.value);
+                
+                itemList.removeChild(listItem);
+            }
+            else if (item.text == "point") {
+                let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value)
+                let listItem = document.getElementById(removeItem.value)
+
+                itemList.removeChild(listItem);
+            }
+            
         }
 
         function selectRemove() {
-            var removeVector = document.getElementById("remove-vector");
-            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeVector.value);
-
-            for (let i = 0; i < removeVector.length; i++) {
-                if (removeVector[i].value == currVector[0]["value"]) {
-                    removeVector.removeChild(removeVector[i])
+            var removeItem = document.getElementById("remove-vector");
+            let item = removeItem.options[removeItem.selectedIndex];
+            
+            if (item.text == "vector") {
+            let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === removeItem.value);
+            for (let i = 0; i < removeItem.length; i++) {
+                if (removeItem[i].value == currVector[0]["value"]) {
+                    removeItem.removeChild(removeItem[i])
                 }
             }
+            }
+            else if (item.text == "point") {
+                let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value)
+                console.log("currPoint: ", currPoint);
+                for (let i = 0; i < removeItem.length; i++) {
+                    if (removeItem[i].value == currPoint[0].value) {
+                        removeItem.removeChild(removeItem[i])
+            }
         }
+    }
+}
 
     // Matrix Transformations
 
