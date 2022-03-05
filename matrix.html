@@ -12,7 +12,7 @@
     <body>
         <div class="container">
             <h1>Matrix/Vector Manipulation</h1>
-            <h2>Visualise vector transformations</h2>
+            <h2>Visualise linear transformations</h2>
             <h3>developed and programmed by Alfie Reeves</h3>
         </div>
 
@@ -21,23 +21,22 @@
             <div class="tabs">
                 <button data-tab-target="#vector-inputs" class="active tab">Vector</button>
                 <button data-tab-target="#matrix-inputs" class="tab">Matrix</button>
+                <button data-tab-target="#plane-inputs" class="tab">Plane</button>
             </div>
             <div class="tab-content">
                 <div id="vector-inputs" data-tab-content class="active">
                     <label class="vector-label">Input Vector:</label>
                     <p id="vector">
-                        <input class="vector-props" id="vector_i" placeholder="a"> i
-                        <input class="vector-props" id="vector_j" placeholder="b"> j
-                        <input class="vector-props" id="vector_k" placeholder="c"> k
+                        <input class="vector-props" id="vector_i" placeholder="a">i
+                        <input class="vector-props" id="vector_j" placeholder="b">j
+                        <input class="vector-props" id="vector_k" placeholder="c">k
                         <button id="v-button">Submit</button>
                     </p>
                     <label class="points-label">Points</label>                    
                     <p id="point">
-                        (
-                        <input class="point-input" id="point-x" placeholder="x">,
-                        <input class="point-input" id="point-y" placeholder="y">,
-                        <input class="point-input" id="point-z" placeholder="z "> 
-                        )
+                        (<input class="point-input" id="point-x" placeholder="x">
+                        ,<input class="point-input" id="point-y" placeholder="y">
+                        ,<input class="point-input" id="point-z" placeholder="z ">)
                         <button id="point-button">Submit</button>
                     </p>
                 </div>
@@ -73,17 +72,27 @@
                         <div class="apply-btn-container">
                             <button id="apply-matrix-btn">Apply</button>
                         </div>
-            </div>
+                    </div>
+                    <div id="plane-inputs" data-tab-content>
+                        <label class="plane-label">Plane:</label>
+                        <p class="plane">
+                            <input class="plane-component" id="plane-a" placeholder="a">x
+                            +<input class="plane-component" id="plane-b" placeholder="b">y
+                            +<input class="plane-component" id="plane-c" placeholder="c">z                            
+                            =<input class="plane-component" id="plane-d" placeholder="d">
+                            <button id="plane-button">Submit</button>
+                        </p>
+                    </div>
         </div>
         <div class="vector-container">
             <div id="av-title">
-                <label>Active Vectors/Points:</label>
+                <label>Active Objects:</label>
             </div>
             <div id="active-vectors">
                 <ol id="vector-list">
 
                 </ol>
-                <label>Remove Vector:</label>
+                <label>Remove Object:</label>
                 <select id="remove-vector">
 
                 </select>

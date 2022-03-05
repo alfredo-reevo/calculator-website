@@ -21,6 +21,21 @@ class PointOBJ {
     }
 }
 
+class PlaneOBJ {
+    constructor(name, value, type, geo, mat, mesh, a, b, c, d, normal) {
+        this.a = a
+        this.b = b
+        this.c = c
+        this.d = d
+        this.name = name
+        this.value = value
+        this.type = type
+        this.geo = geo
+        this.mat = mat
+        this.mesh = mesh
+        this.normal = normal
+    }
+}
 
 // Appearance Related //
 
@@ -68,9 +83,153 @@ renderer.render(scene, camera);
 
 // DEFINING VECTORS & POINTS //
 
+// - Planes - //
+
+let planeBtn = document.getElementById("plane-button");
+planeBtn.addEventListener("click", planeCreate);
+
+let planeN = 0;
+
+var activePlanes = [];
+function planeCreate() {
+    var a = document.getElementById("plane-a").value;
+    var b = document.getElementById("plane-b").value;
+    var c = document.getElementById("plane-c").value;
+    var d = document.getElementById("plane-d").value;
+
+    var planeGeometry;
+    var planeMaterial;
+    var plane;
+
+    var normalVector;
+
+    if (a != NaN && b != NaN && c != NaN && d != NaN) {
+        var planeColour = new THREE.Color(0x00FF78);
+        planeGeometry = new THREE.BufferGeometry(30, 30);
+        planeMaterial = new THREE.MeshBasicMaterial({color: planeColour, 
+        side: THREE.DoubleSide});
+        plane = new THREE.Mesh(planeGeometry, planeMaterial)
+
+        let normalMagnitude = Math.sqrt(Math.pow(a,2) + Math.pow(b,2) + Math.pow(c,2));
+
+        let unitX = (a/normalMagnitude);
+        let unitY = (b/normalMagnitude);
+        let unitZ = (c/normalMagnitude);
+
+        let unitNormal = new THREE.Vector3(unitX, unitY, unitZ);
+        
+        // Find the distance between the plane and the origin
+        var planeDistance = ((Math.abs(-d))/normalMagnitude)
+        console.log("Distance from origin to plane: ", planeDistance)
+
+
+        // * PLANE METHODS * -- Both use Hessian Normal Form, I've elected to use my manual method. //
+
+        // Plane Helper Method 
+        
+        /*
+        let constant = (d/normalMagnitude);
+        var planeHessian = new THREE.Plane(unitNormal, -constant)
+        let planeHelper = new THREE.PlaneHelper(planeHessian, 30, 0xFFFFFF)
+
+        scene.add(planeHelper);
+        */
+
+        
+        // Manual Method 
+        
+        var scalar = (planeDistance/normalMagnitude);
+        console.log("Scalar: ", scalar);
+
+        var scaledNormal_x = (scalar * a);
+        var scaledNormal_y = (scalar * b);
+        var scaledNormal_z = (scalar * c);
+
+        console.log("Scaled normal: ", `(${scaledNormal_x}, ${scaledNormal_y}, ${scaledNormal_z})`)
+        
+
+        let normalPoints = [];
+        normalPoints.push(new THREE.Vector3(scaledNormal_x, scaledNormal_y, scaledNormal_z));
+        normalPoints.push(new THREE.Vector3(a, b, c));
+        
+        let normalVectorGeometry = new THREE.BufferGeometry().setFromPoints(normalPoints);
+        let normalVectorMaterial = new THREE.LineBasicMaterial({color: 0xFFFFFF});
+        normalVector = new THREE.Line(normalVectorGeometry, normalVectorMaterial);
+        
+        
+        // console.log("Angle of normal = ", normalAngleX, normalAngleY, normalAngleZ);
+
+
+        scene.add(normalVector);
+
+        let constant = (d/normalMagnitude);
+
+        let scale = -(constant);
+
+        if (Math.abs(scale) < 1e-8) {
+            scale = 1e-8
+        }
+
+        plane.scale.set(0.5 * 30, 0.5 * 30, scale);
+        const planePositions = [ -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1 ];
+
+        planeGeometry.setAttribute("position", new THREE.Float32BufferAttribute(planePositions, 3));
+        planeGeometry.computeBoundingSphere();
+        plane.lookAt(unitNormal);
+
+        plane.updateMatrixWorld();
+
+        plane.material.transparent = true;
+        plane.material.opacity = 0.5;
+        scene.add(plane);
+        planeN++;
+    }
+
+    var newPlane = new PlaneOBJ(`Plane ${planeN}`, `plane-${planeN}`,
+    "plane", planeGeometry, planeMaterial, plane, a, b, c, d, normalVector)
+
+    activePlanes.push(newPlane);
+
+    // Add to Active Objects
+    const planeList = document.getElementById("vector-list");
+    const removePlane = document.getElementById("remove-vector");
+
+    let planeItem = document.createElement("li");
+    let planeSelect = document.createElement("option");
+
+    if (a < 0) {
+        var aString = `-${a * -1}`;
+    } else {
+        var aString = `${a}`
+    }
+    
+    if (b < 0) {
+        var bString = `- ${b * -1}`;
+    } else {
+        var bString = `+ ${b}`
+    }
+
+    if (c < 0) {
+        var cString = `- ${c * -1}`;
+    } else {
+        var cString = `+ ${c}`;
+    }
+
+    planeItem.textContent = (`${newPlane.name}: ${aString}x ${bString}y ${cString}z = ${d}`);
+    planeItem.id = newPlane.value;
+
+    planeSelect.text = newPlane.type;
+    planeSelect.value = newPlane.value;
+    planeSelect.label = newPlane.name;
+
+    planeList.appendChild(planeItem);
+    removePlane.appendChild(planeSelect);
+    
+}
+
 // - Points - //
 
-let pointBtn = document.getElementById("point-button")
+let pointBtn = document.getElementById("point-button");
 pointBtn.addEventListener("click", pointCreate);
 
 let pointN = 0;
@@ -104,7 +263,7 @@ function pointCreate() {
 
     activePoints.push(newPoint);
 
-    // Add to Active Vectors/Points
+    // Add to Active Objects
     const pointList = document.getElementById("vector-list");
     const removePoint = document.getElementById("remove-vector");
 
@@ -112,8 +271,6 @@ function pointCreate() {
     let pointSelect = document.createElement("option");
     pointItem.textContent = (`${newPoint.name}: (${x}, ${y}, ${z})`);
     pointItem.id = newPoint.value;
-    console.log(pointItem)
-    console.log(newPoint.type);
 
     pointSelect.text = newPoint.type;
     pointSelect.value = newPoint.value;
@@ -164,7 +321,8 @@ function vectorCreate() {
             vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
             vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
             
-            vector = new THREE.Line(vectorGeometry, vectorMaterial);
+            vector = new THREE.Line(vectorGeometry, vectorMaterial);        
+
             scene.add(vector);
             vectorN++;
             
@@ -235,7 +393,7 @@ function vectorCreate() {
 
 }
 
-        // REMOVAL OF VECTORS AND POINTS //
+        // REMOVAL OF OBJECTS //
 
         let removeButton = document.getElementById("remVector");
         removeButton.addEventListener("click", () => {        
@@ -285,7 +443,7 @@ function vectorCreate() {
                 // currVector = [];
             }
             else if (item.text == "point") {
-                let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value)
+                let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value);
 
                 console.log(currPoint);
                 /*
@@ -306,6 +464,32 @@ function vectorCreate() {
 
                 selectRemove();
             }
+        
+            else if (item.text == "plane") {
+                let currPlane = activePlanes.filter(newPlane => newPlane.value === removeItem.value);
+
+                console.log(currPlane);
+
+                let currGeometry = currPlane[0].geo;
+                let currMaterial = currPlane[0].mat;
+                let currMesh = currPlane[0].mesh;
+
+                console.warn("Plane Normal: ", currPlane[0].normal);
+                
+
+                currPlane[0].normal.geometry.dispose();
+                currPlane[0].normal.material.dispose();
+                scene.remove(currPlane[0].normal);
+
+                currGeometry.dispose();
+                currMaterial.dispose();
+                scene.remove(currMesh);
+
+                listRemove();
+
+                selectRemove();
+            }
+
 
     })
 
@@ -341,8 +525,12 @@ function vectorCreate() {
                 itemList.removeChild(listItem);
             }
             else if (item.text == "point") {
-                let currPoint = activePoints.filter(newPoint => newPoint.value === removeItem.value)
                 let listItem = document.getElementById(removeItem.value)
+
+                itemList.removeChild(listItem);
+            }
+            else if (item.text == "plane") {
+                let listItem = document.getElementById(removeItem.value);
 
                 itemList.removeChild(listItem);
             }
@@ -368,8 +556,17 @@ function vectorCreate() {
                     if (removeItem[i].value == currPoint[0].value) {
                         removeItem.removeChild(removeItem[i])
             }
-        }
-    }
+            }
+            }
+            else if (item.text == "plane") {
+                let currPlane = activePlanes.filter(newPlane => newPlane.value === removeItem.value);
+                console.log("currPlane: ", currPlane);
+                for (let i = 0; i < removeItem.length; i++) {
+                    if (removeItem[i].value == currPlane[0].value) {
+                        removeItem.removeChild(removeItem[i])
+                    }
+                }
+            }
 }
 
     // Matrix Transformations
@@ -505,6 +702,21 @@ const yAxis_mat = new THREE.LineBasicMaterial({color: 0xffffff});
 const yAxis = new THREE.Line(yAxis_geo, yAxis_mat);
 scene.add(yAxis)
 
+const loader = new THREE.FontLoader();
+
+loader.load("font/mathfontitalic.json", function(font) {
+
+    const yGeometry = new THREE.TextGeometry("y", {
+        font: font,
+        size: 0.5,
+        height: 0.1,
+        curveSegments: 1,
+    })
+    const yMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF});
+    const yLabel = new THREE.Mesh(yGeometry, yMaterial);
+    yLabel.position.set(-0.2, (size/2)+0.3, -0.05);
+    scene.add(yLabel);
+})
 
 
 // # X Axis # //
@@ -517,6 +729,34 @@ const xAxis_mat = new THREE.LineBasicMaterial({color: 0xffffff});
 const xAxis = new THREE.Line(xAxis_geo, xAxis_mat);
 scene.add(xAxis)
 
+loader.load("font/mathfontitalic.json", function(font) {
+
+    const xGeometry = new THREE.TextGeometry("x", {
+        font: font,
+        size: 0.5,
+        height: 0.1,
+        curveSegments: 1,
+    })
+    const xMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF});
+    const xLabel = new THREE.Mesh(xGeometry, xMaterial);
+    xLabel.position.set((size/2)+0.05, -0.15, -0.01);
+    scene.add(xLabel);
+})
+
+loader.load("font/mathfontitalic.json", function(font) {
+
+    const xGeometry = new THREE.TextGeometry("-x", {
+        font: font,
+        size: 0.5,
+        height: 0.1,
+        curveSegments: 1,
+    })
+    const xMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF});
+    const xLabel = new THREE.Mesh(xGeometry, xMaterial);
+    xLabel.position.set(-((size/2))-0.7, -0.15, -0.01);
+    scene.add(xLabel);
+})
+
 // # Z Axis # // 
 const zPoints = []
 zPoints.push(new THREE.Vector3(0,0,-(size/2)));
@@ -527,6 +767,33 @@ const zAxis_mat = new THREE.LineBasicMaterial({color: 0xffffff});
 const zAxis = new THREE.Line(zAxis_geo, zAxis_mat);
 scene.add(zAxis)
 
+loader.load("font/mathfontitalic.json", function(font) {
+
+    const zGeometry = new THREE.TextGeometry("z", {
+        font: font,
+        size: 0.5,
+        height: 0.1,
+        curveSegments: 1,
+    })
+    const zMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF});
+    const zLabel = new THREE.Mesh(zGeometry, zMaterial);
+    zLabel.position.set(-0.2, -0.15, (size/2)+0.05);
+    scene.add(zLabel);
+})
+
+loader.load("font/mathfontitalic.json", function(font) {
+
+    const zGeometry = new THREE.TextGeometry("-z", {
+        font: font,
+        size: 0.5,
+        height: 0.1,
+        curveSegments: 1,
+    })
+    const zMaterial = new THREE.MeshBasicMaterial({color:0xFFFFFF});
+    const zLabel = new THREE.Mesh(zGeometry, zMaterial);
+    zLabel.position.set(-0.2, -0.15, -((size/2))-0.2);
+    scene.add(zLabel);
+})
 
 // Controls
 
