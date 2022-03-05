@@ -19,6 +19,17 @@ At this point in time, this project consists only of:
   - The most challenging yet most enjoyable feature to implement, this visualiser allows the user to input
   3-Dimensional vectors and perform matrix transformations which can be applied on any of the currently created vectors; original or transformed.
   The user can also remove created vectors at will, including transformed vectors.
+  
+  - #### ***-- NEW --*** Points
+    - The "Points" Feature allows you to create visible points within the 3D space, similarly to creating vectors.
+      Points can be useful for finding intersections between vectors, and can make visualising more complicated vector combinations 
+      much easier.
+  
+  - ##### *- In Progress -* Planes
+  
+  
+  - ##### *- TODO -* Direction Vectors
+  
 
 ## Future Intentions
 
