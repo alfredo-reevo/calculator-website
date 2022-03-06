@@ -344,7 +344,7 @@ body {
 .apply.btn.container {
     justify-content: right;
 }
-
+/*
 #apply-matrix-btn {
     margin-left: 17em;
     margin-top: 4.4em;
@@ -354,6 +354,57 @@ body {
     padding: 2px;
     position: absolute;
 }
+*/
+#apply-matrix-btn {
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    margin-left: 16.45em;
+    margin-top: 4.17em;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    fill: #000;
+    font-family: mathFontItalic;
+    font-size: 20px;
+    font-weight: 550;
+    height: 48px;
+    justify-content: center;
+    /*letter-spacing: -.8px;*/
+    line-height: 24px;
+    min-width: 70px;
+    outline: 0;
+    padding: 0 17px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: absolute;
+  }
+  
+  #apply-matrix-btn:focus {
+    color: #171e29;
+  }
+  
+  #apply-matrix-btn:hover {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+  
+  #apply-matrix-btn:active {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+  
+  #apply-matrix-btn:hover {
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px rgb(51, 51, 51);
+  }
 
 #examples {
     position: absolute;
@@ -461,19 +512,55 @@ body {
 
 
 #plane-button {
-    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-sizing: border-box;
     margin-left: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
-    padding: 2px;
-    background-color: white;
-    transition: ease 0.2s;
-}
-
-#plane-button:hover {
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px rgb(51, 51, 51);
-}
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    fill: #000;
+    font-family: mathFontItalic;
+    font-size: 20px;
+    font-weight: 550;
+    height: 28px;
+    justify-content: center;
+    letter-spacing: -.8px;
+    line-height: 24px;
+    min-width: 70px;
+    outline: 0;
+    padding: 0 17px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  #plane-button:focus {
+    color: #171e29;
+  }
+  
+  #plane-button:hover {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+  
+  #plane-button:active {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+  
+  #plane-button:hover {
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px rgb(51, 51, 51);
+  }
 
 .plane {
     letter-spacing: 5px;
