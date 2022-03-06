@@ -108,7 +108,7 @@ body {
     position: absolute;
     border-radius: 5px;
 }
-
+/*
 #v-button {
     display: flex;
     margin-left: 18px;
@@ -120,6 +120,57 @@ body {
 }
 
 #v-button:hover {
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(51, 51, 51);
+}
+*/
+#v-button {
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-sizing: border-box;
+    margin-left: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    fill: #000;
+    font-family: mathFontItalic;
+    font-size: 20px;
+    font-weight: 550;
+    height: 28px;
+    justify-content: center;
+    letter-spacing: -.8px;
+    line-height: 24px;
+    min-width: 70px;
+    outline: 0;
+    padding: 0 17px;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  #v-button:focus {
+    color: #171e29;
+  }
+  
+  #v-button:hover {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+  
+  #v-button:active {
+    border-color: #06f;
+    color: #06f;
+    fill: #06f;
+  }
+
+  #v-button:hover {
     border-radius: 5px;
     box-shadow: 2px 2px 2px rgb(51, 51, 51);
 }
@@ -147,6 +198,7 @@ body {
     height: 1px;
 }
 
+/*
 #point-button {
     display: flex;
     margin-left: 5px;
@@ -155,6 +207,58 @@ body {
     padding: 2px;
     background-color: white;
     transition: ease 0.2s;
+}
+*/
+
+#point-button {
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-sizing: border-box;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  fill: #000;
+  font-family: mathFontItalic;
+  font-size: 20px;
+  font-weight: 550;
+  height: 28px;
+  justify-content: center;
+  letter-spacing: -.8px;
+  line-height: 24px;
+  min-width: 70px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#point-button:focus {
+  color: #171e29;
+}
+
+#point-button:hover {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+#point-button:active {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+#point-button:hover {
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(51, 51, 51);
 }
 
 #point {
@@ -165,12 +269,11 @@ body {
 #point input {
     width: 32px;
     margin-right: 10px;
+    text-align: center;
 }
 
-#point-button:hover {
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px rgb(51, 51, 51);
-}
+
+
 
 .active#matrix-inputs {
     display: flex;
@@ -179,7 +282,7 @@ body {
     background-color: white;
     width: 450px;
     padding: 5px;
-    height: 180px;
+    height: 300px;
 }
 
 
@@ -223,6 +326,7 @@ body {
     margin-top: 0.49em;
 }
 
+
 #bracket-right {
     font-size: 80px;
     position: absolute;
@@ -230,19 +334,61 @@ body {
     margin-top: 0.49em;
 }
 
+#arrow {
+    font-size: 50px;
+    position: absolute;
+    margin-left: 5.9em;
+    margin-top: 1.32em;
+}
+
 .apply.btn.container {
     justify-content: right;
 }
 
 #apply-matrix-btn {
-    margin-left: 18em;
-    margin-top: 7em;
+    margin-left: 17em;
+    margin-top: 4.4em;
     font-family: mathFont;
     font-size: 20px;
     text-align: center;
     padding: 2px;
     position: absolute;
 }
+
+#examples {
+    position: absolute;
+    justify-content: left;
+    font-size: 25px;
+    margin-top: 150px;
+    margin-left: 10px;
+}
+
+.example-buttons {
+    display: grid;
+    grid-template-columns: 200px 180px;
+    max-height: 40px;
+    margin-top: 200px;
+    position: absolute;
+    margin-left: 40px;
+}
+
+.example-buttons button {
+    border-radius: 5px;
+    margin: 1.5px;
+    padding: 3px;
+}
+
+
+
+#examples-label::after {
+    content: "";
+    display: block;
+    background-color: rgb(51, 51, 51);
+    width: 105px;
+    height: 1px;
+}
+
+
 
 #right-bracket {
     margin-left: 2em;
@@ -311,6 +457,22 @@ body {
     background-color: rgb(51, 51, 51);
     width: 60px;
     height: 1px;
+}
+
+
+#plane-button {
+    display: flex;
+    margin-left: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px;
+    background-color: white;
+    transition: ease 0.2s;
+}
+
+#plane-button:hover {
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgb(51, 51, 51);
 }
 
 .plane {

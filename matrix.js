@@ -81,7 +81,7 @@ renderer.render(scene, camera);
 
 // - Geometry - //
 
-// DEFINING VECTORS & POINTS //
+// DEFINING OBJECTS //
 
 // - Planes - //
 
@@ -103,10 +103,28 @@ function planeCreate() {
 
     var normalVector;
 
+    const normalColours = [
+        0xAFFFAA,
+        0xFEFFAA,
+        0xFFD7AA,
+        0xFFAAAA,
+        0xAAFFFB,
+        0xAAB8FF,
+        0xD3AAFF,
+        0xFFAAFC
+    ]
+
+    const planeColours = [
+        0x38E69C,
+        0x38E65A,
+        0x92E638,
+        0x00D661
+    ]
+
     if (a != NaN && b != NaN && c != NaN && d != NaN) {
-        var planeColour = new THREE.Color(0x00FF78);
+        let planeHex = planeColours[Math.floor(Math.random()*planeColours.length)];
         planeGeometry = new THREE.BufferGeometry(30, 30);
-        planeMaterial = new THREE.MeshBasicMaterial({color: planeColour, 
+        planeMaterial = new THREE.MeshBasicMaterial({color: planeHex, 
         side: THREE.DoubleSide});
         plane = new THREE.Mesh(planeGeometry, planeMaterial)
 
@@ -149,11 +167,15 @@ function planeCreate() {
         
 
         let normalPoints = [];
-        normalPoints.push(new THREE.Vector3(scaledNormal_x, scaledNormal_y, scaledNormal_z));
-        normalPoints.push(new THREE.Vector3(a, b, c));
-        
+        normalPoints.push(new THREE.Vector3(0, 0, 0));  
+        normalPoints.push(new THREE.Vector3((scaledNormal_x*3), (scaledNormal_y*3), (scaledNormal_z*3)));
+    
+
+        let normalHex = normalColours[Math.floor(Math.random()*normalColours.length)];
+        console.log("Colour List: ", normalColours);
+        console.log("normalColour: ", normalHex);
         let normalVectorGeometry = new THREE.BufferGeometry().setFromPoints(normalPoints);
-        let normalVectorMaterial = new THREE.LineBasicMaterial({color: 0xFFFFFF});
+        let normalVectorMaterial = new THREE.LineBasicMaterial({color: normalHex});
         normalVector = new THREE.Line(normalVectorGeometry, normalVectorMaterial);
         
         
@@ -590,26 +612,17 @@ function vectorCreate() {
             columnVector.push([currVector[0]["z"]]);
                                             
                 // Matrix Calculations //
-            let matrixA = document.getElementById("matrix-a");
-            let valA = parseFloat(matrixA.value)
-            let matrixB = document.getElementById("matrix-b");
-            let valB = parseFloat(matrixB.value)
-            let matrixC = document.getElementById("matrix-c");
-            let valC = parseFloat(matrixC.value)
+            let matrixA = document.getElementById("matrix-a").value;
+            let matrixB = document.getElementById("matrix-b").value;
+            let matrixC = document.getElementById("matrix-c").value;
                 
-            let matrixD = document.getElementById("matrix-d");
-            let valD = parseFloat(matrixD.value)
-            let matrixE = document.getElementById("matrix-e");
-            let valE = parseFloat(matrixE.value)
-            let matrixF = document.getElementById("matrix-f");
-            let valF = parseFloat(matrixF.value)
+            let matrixD = document.getElementById("matrix-d").value;
+            let matrixE = document.getElementById("matrix-e").value;
+            let matrixF = document.getElementById("matrix-f").value;
                 
-            let matrixG = document.getElementById("matrix-g");
-            let valG = parseFloat(matrixG.value)
-            let matrixH = document.getElementById("matrix-h");
-            let valH = parseFloat(matrixH.value)
-            let matrixI = document.getElementById("matrix-i");
-            let valI = parseFloat(matrixI.value)
+            let matrixG = document.getElementById("matrix-g").value;
+            let matrixH = document.getElementById("matrix-h").value;
+            let matrixI = document.getElementById("matrix-i").value;
                 
             let transformCoords = [];
                 
@@ -617,9 +630,9 @@ function vectorCreate() {
             let transY = 0;
             let transZ = 0;
                 
-            transX = ((valA * columnVector[0][0]) + (valB * columnVector[1][0]) + (valC * columnVector[2][0]));
-            transY = ((valD * columnVector[0][0]) + (valE * columnVector[1][0]) + (valF * columnVector[2][0]));
-            transZ = ((valG * columnVector[0][0]) + (valH * columnVector[1][0]) + (valI * columnVector[2][0]));
+            transX = ((matrixA * columnVector[0][0]) + (matrixB * columnVector[1][0]) + (matrixC * columnVector[2][0]));
+            transY = ((matrixD * columnVector[0][0]) + (matrixE * columnVector[1][0]) + (matrixF * columnVector[2][0]));
+            transZ = ((matrixG * columnVector[0][0]) + (matrixH * columnVector[1][0]) + (matrixI * columnVector[2][0]));
                     
 
             
@@ -638,12 +651,12 @@ function vectorCreate() {
             // Create a new list item for transformed vector (e.g: Vector 1 (Transform): (5, 4, 3))
             const vectorList = document.getElementById("vector-list");
             let transAppend = document.createElement("li");
-            transAppend.textContent = (`${currVector[0]["name"]} (Transform)[${transN}]: (${transX}, ${transY}, ${transZ})`);     
-            transAppend.id = (`${currVector[0]["value"]}-transform`);
+            transAppend.textContent = (`${currVector[0]["name"]} (Transform): (${transX}, ${transY}, ${transZ})`);     
+            transAppend.id = (`${currVector[0]["value"]}-transform[${transN}]`);
                 
                 let tVectorObj = {
                     name: `${currVector[0]["name"]} (Transform)`,
-                    value: `${currVector[0]["value"]}-transform`,
+                    value: `${currVector[0]["value"]}-transform[${transN}]`,
                     coords: `(${transX}, ${transY}, ${transZ})`,
                     geo: transGeometry,
                     mat: transMaterial,
@@ -679,7 +692,203 @@ function vectorCreate() {
             
             });
 
-        
+// -- Button Examples -- //
+
+var ninetyX = document.getElementById("ninety-deg-x");
+var ninetyY = document.getElementById("ninety-deg-y");
+var ninetyZ = document.getElementById("ninety-deg-z");
+var oneeightyX = document.getElementById("oneeighty-deg-x");
+var oneeightyY = document.getElementById("oneeighty-deg-y");
+var oneeightyZ = document.getElementById("oneeighty-deg-z");
+
+// Matrix
+let valA = document.getElementById("matrix-a");
+let valB = document.getElementById("matrix-b");
+let valC = document.getElementById("matrix-c");
+
+let valD = document.getElementById("matrix-d");
+let valE = document.getElementById("matrix-e");
+let valF = document.getElementById("matrix-f");
+
+let valG = document.getElementById("matrix-g");
+let valH = document.getElementById("matrix-h");
+let valI = document.getElementById("matrix-i");
+
+// ? 90 DEGREES ? //
+ninetyX.addEventListener("click", () => {
+    valA.textContent = "1";
+    valA.value = 1;
+
+    valB.textContent = "0";
+    valB.value = 0;
+
+    valC.textContent = "0";
+    valC.value = 0;
+
+    valD.textContent = "0";
+    valD.value = 0;
+    
+    valE.textContent = "0";
+    valE.value = 0;
+
+    valF.textContent = "-1";
+    valF.value = -1;
+
+    valG.textContent = "0";
+    valG.value = 0;
+
+    valH.textContent = "1";
+    valH.value = 1;
+
+    valI.textContent = "0";
+    valI.value = 0;
+})
+
+ninetyY.addEventListener("click", () => {
+    valA.textContent = "0";
+    valA.value = 0;
+
+    valB.textContent = "0";
+    valB.value = 0;
+
+    valC.textContent = "-1";
+    valC.value = -1;
+
+    valD.textContent = "0";
+    valD.value = 0;
+    
+    valE.textContent = "1";
+    valE.value = 1;
+
+    valF.textContent = "0";
+    valF.value = 0;
+
+    valG.textContent = "1";
+    valG.value = 1;
+
+    valH.textContent = "0";
+    valH.value = 0;
+
+    valI.textContent = "0";
+    valI.value = 0;
+})
+
+ninetyZ.addEventListener("click", () => {
+    valA.textContent = "0";
+    valA.value = 0;
+
+    valB.textContent = "-1";
+    valB.value = -1;
+
+    valC.textContent = "0";
+    valC.value = 0;
+
+    valD.textContent = "1";
+    valD.value = 1;
+    
+    valE.textContent = "0";
+    valE.value = 0;
+
+    valF.textContent = "0";
+    valF.value = 0;
+
+    valG.textContent = "0";
+    valG.value = 0;
+
+    valH.textContent = "0";
+    valH.value = 0;
+
+    valI.textContent = "1";
+    valI.value = 1;
+})
+
+// ? 180 DEGREES ? //
+oneeightyX.addEventListener("click", () => {
+    valA.textContent = "1";
+    valA.value = 1;
+
+    valB.textContent = "0";
+    valB.value = 0;
+
+    valC.textContent = "0";
+    valC.value = 0;
+
+    valD.textContent = "0";
+    valD.value = 0;
+    
+    valE.textContent = "0";
+    valE.value = 0;
+
+    valF.textContent = "-1";
+    valF.value = -1;
+
+    valG.textContent = "0";
+    valG.value = 0;
+
+    valH.textContent = "-1";
+    valH.value = -1;
+
+    valI.textContent = "0";
+    valI.value = 0;
+})
+
+oneeightyY.addEventListener("click", () => {
+    valA.textContent = "0";
+    valA.value = 0;
+
+    valB.textContent = "0";
+    valB.value = 0;
+
+    valC.textContent = "-1";
+    valC.value = -1;
+
+    valD.textContent = "0";
+    valD.value = 0;
+    
+    valE.textContent = "1";
+    valE.value = 1;
+
+    valF.textContent = "0";
+    valF.value = 0;
+
+    valG.textContent = "-1";
+    valG.value = -1;
+
+    valH.textContent = "0";
+    valH.value = 0;
+
+    valI.textContent = "0";
+    valI.value = 0;
+})
+
+oneeightyZ.addEventListener("click", () => {
+    valA.textContent = "0";
+    valA.value = 0;
+
+    valB.textContent = "-1";
+    valB.value = -1;
+
+    valC.textContent = "0";
+    valC.value = 0;
+
+    valD.textContent = "-1";
+    valD.value = -1;
+    
+    valE.textContent = "0";
+    valE.value = 0;
+
+    valF.textContent = "0";
+    valF.value = 0;
+
+    valG.textContent = "0";
+    valG.value = 0;
+
+    valH.textContent = "0";
+    valH.value = 0;
+
+    valI.textContent = "1";
+    valI.value = 1;
+})
 
 // -- Grid Plane -- //
 
