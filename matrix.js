@@ -816,31 +816,31 @@ oneeightyX.addEventListener("click", () => {
     valD.textContent = "0";
     valD.value = 0;
     
-    valE.textContent = "0";
-    valE.value = 0;
+    valE.textContent = "-1";
+    valE.value = -1;
 
-    valF.textContent = "-1";
-    valF.value = -1;
+    valF.textContent = "0";
+    valF.value = 0;
 
     valG.textContent = "0";
     valG.value = 0;
 
-    valH.textContent = "-1";
-    valH.value = -1;
+    valH.textContent = "0";
+    valH.value = 0;
 
-    valI.textContent = "0";
-    valI.value = 0;
+    valI.textContent = "-1";
+    valI.value = -1;
 })
 
 oneeightyY.addEventListener("click", () => {
-    valA.textContent = "0";
-    valA.value = 0;
+    valA.textContent = "-1";
+    valA.value = -1;
 
     valB.textContent = "0";
     valB.value = 0;
 
-    valC.textContent = "-1";
-    valC.value = -1;
+    valC.textContent = "0";
+    valC.value = 0;
 
     valD.textContent = "0";
     valD.value = 0;
@@ -851,31 +851,31 @@ oneeightyY.addEventListener("click", () => {
     valF.textContent = "0";
     valF.value = 0;
 
-    valG.textContent = "-1";
-    valG.value = -1;
+    valG.textContent = "0";
+    valG.value = 0;
 
     valH.textContent = "0";
     valH.value = 0;
 
-    valI.textContent = "0";
-    valI.value = 0;
+    valI.textContent = "-1";
+    valI.value = -1;
 })
 
 oneeightyZ.addEventListener("click", () => {
-    valA.textContent = "0";
-    valA.value = 0;
+    valA.textContent = "-1";
+    valA.value = -1;
 
-    valB.textContent = "-1";
-    valB.value = -1;
+    valB.textContent = "0";
+    valB.value = 0;
 
     valC.textContent = "0";
     valC.value = 0;
 
-    valD.textContent = "-1";
-    valD.value = -1;
+    valD.textContent = "0";
+    valD.value = 0;
     
-    valE.textContent = "0";
-    valE.value = 0;
+    valE.textContent = "-1";
+    valE.value = -1;
 
     valF.textContent = "0";
     valF.value = 0;
