@@ -25,7 +25,12 @@ At this point in time, this project consists only of:
       Points can be useful for finding intersections between vectors, and can make visualising more complicated vector combinations 
       much easier.
   
-  - ##### *- In Progress -* Planes
+  - ##### ***-- NEW --*** Planes
+    - The "Planes" feature allows you to create visible planes within the 3D space, through the equation
+      ***ax + by + cz = d***,
+      otherwise known as **Hessian Normal Form**.
+      
+      I intend to add automatic intersection calculations to show the user where a vector may intersect with the plane.
   
   
   - ##### *- TODO -* Direction Vectors
@@ -41,8 +46,5 @@ Some ideas that pop into mind are:
 
 - *Implementation of direction vectors*
   - **r** = ai + bj + ck + *λ*(di + ej + fk)
-- *Implementation of 3-Dimensional Planes*
-  - **r.n = k**
-  - **n<sub>1</sub> x + n<sub>2</sub> y + n<sub>3</sub> z = k**
 - Graphical representation of Quadratic Solver's results
   - Show the roots via a graphical medium, similar to Desmos.
