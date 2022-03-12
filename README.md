@@ -14,10 +14,10 @@ At this point in time, this project consists only of:
   - Automatically performs calculations prior to the one you are currently entering
 - ***Quadratic Solver***
   - Calculates both values of x and returns them for the user to see
-  - Even works with complex numbers!
+  - Also works with complex numbers
 - ***Matrix/Vector Visualiser***
-  - The most challenging yet most enjoyable feature to implement, this visualiser allows the user to input
-  3-Dimensional vectors and perform matrix transformations which can be applied on any of the currently created vectors; original or transformed.
+  - This visualiser allows the user to add, remove, manipulate and represent
+  3-Dimensional vectors and apply matrix transformations.
   The user can also remove created vectors at will, including transformed vectors.
   
   - #### ***-- NEW --*** Points
@@ -33,7 +33,7 @@ At this point in time, this project consists only of:
       I intend to add automatic intersection calculations to show the user where a vector may intersect with the plane.
   
   
-  - ##### *- TODO -* Direction Vectors
+  - ##### *- TODO -* Parametric Vectors
   
 
 ## Future Intentions
@@ -46,5 +46,6 @@ Some ideas that pop into mind are:
 
 - *Implementation of direction vectors*
   - **r** = ai + bj + ck + *λ*(di + ej + fk)
+- Guidelines
 - Graphical representation of Quadratic Solver's results
   - Show the roots via a graphical medium, similar to Desmos.
