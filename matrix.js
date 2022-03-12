@@ -341,12 +341,13 @@ function vectorCreate() {
         let jDirection = document.getElementById("vector_e").value;
         let kDirection = document.getElementById("vector_f").value;
 
-        /*
-        iComponent = parseFloat(iComponent);
-        jComponent = parseFloat(jComponent);
-        kComponent = parseFloat(kComponent);
-        */
-
+        let directionX = (Math.round((lambda*iDirection)*100) / 100).toFixed(2);
+        let directionY = (Math.round((lambda*jDirection)*100) / 100).toFixed(2);
+        let directionZ = (Math.round((lambda*kDirection)*100) / 100).toFixed(2);
+        console.log(directionX);
+        console.log(directionY);
+        console.log(directionZ);
+        
 
         var vectorGeometry;
         var vectorMaterial;
@@ -365,7 +366,7 @@ function vectorCreate() {
             else if (vecType.value == "Parametric") {
                 vPoints.push(new THREE.Vector3(0, 0, 0))
                 vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
-                vPoints.push(new THREE.Vector3(lambda*iDirection, lambda*jDirection, lambda*kDirection));
+                vPoints.push(new THREE.Vector3(directionX, directionY, directionZ));
                 console.log(vPoints);
             }
         
@@ -412,7 +413,7 @@ function vectorCreate() {
         vectorObj = {
             name: `Vector ${vectorN}`,
             value: `vector-${vectorN}`,
-            coords: `(${iComponent}, ${jComponent}, ${kComponent}) + (${lambda*iDirection}, ${lambda*jDirection}, ${lambda*kDirection})`,
+            coords: `(${iComponent}, ${jComponent}, ${kComponent}) + (${directionX}, ${directionY}, ${directionZ})`,
             type: "vector-param",
             geo: vectorGeometry,
             mat: vectorMaterial,
@@ -421,9 +422,9 @@ function vectorCreate() {
             x: iComponent,
             y: jComponent,
             z: kComponent,
-            lambdaX: lambda*iDirection,
-            lambdaY: lambda*jDirection,
-            lambdaZ: lambda*kDirection
+            lambdaX: directionX,
+            lambdaY: directionY,
+            lambdaZ: directionZ
         }
     }
         activeVectors.push(vectorObj);      
@@ -718,6 +719,10 @@ function vectorCreate() {
             transLambdaY = ((matrixD * columnVectorLambda[0][0]) + (matrixE * columnVectorLambda[1][0]) + (matrixF * columnVectorLambda[2][0]));
             transLambdaZ = ((matrixG * columnVectorLambda[0][0]) + (matrixH * columnVectorLambda[1][0]) + (matrixI * columnVectorLambda[2][0]));
 
+            transLambdaX = (Math.round(transLambdaX * 100) / 100).toFixed(2);
+            transLambdaY = (Math.round(transLambdaY * 100) / 100).toFixed(2);
+            transLambdaZ = (Math.round(transLambdaZ * 100) / 100).toFixed(2);
+
             transformCoords.push(new THREE.Vector3(0, 0, 0));
             transformCoords.push(new THREE.Vector3(transX, transY, transZ)); 
             transformCoords.push(new THREE.Vector3(transLambdaX, transLambdaY, transLambdaZ));
@@ -735,6 +740,8 @@ function vectorCreate() {
             const vectorList = document.getElementById("vector-list");
             let transAppend = document.createElement("li");
             
+
+
             let tVectorObj;
 
             if (currVector[0].type == "vector") {
