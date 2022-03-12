@@ -100,6 +100,36 @@ body {
     height: 1px;
 }
 
+#vector-type {
+    margin-top: 5px;
+    margin-left: 15px;
+    width: fit-content;
+    font-size: 15px;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 2px;
+}
+
+
+#vector-singular {
+    max-width: 175px;
+    max-height: 30px;
+    margin-bottom: -40px;
+    position:static;
+}
+
+#vector-parametric {
+    max-width: 260px;
+    margin-left: 180px;
+    visibility: hidden;
+}   
+
+
+.type {
+    float:left
+}
+
+
 .active#vector-inputs {
     display: grid;
     background-color: white;
@@ -126,11 +156,13 @@ body {
 */
 #v-button {
     align-items: center;
+    position:fixed;
+    z-index: 1;
     background-color: #fff;
     border: 2px solid #000;
     box-sizing: border-box;
-    margin-left: 18px;
-    margin-top: 5px;
+    margin-left: 15px;
+    margin-top: 160px;
     margin-bottom: 5px;
     color: #000;
     cursor: pointer;
@@ -143,7 +175,7 @@ body {
     justify-content: center;
     letter-spacing: -.8px;
     line-height: 24px;
-    min-width: 70px;
+    width: 94px;
     outline: 0;
     padding: 0 17px;
     text-align: center;
@@ -188,6 +220,7 @@ body {
 
 .points-label {
     margin-left: 15px;
+    margin-top: 36px;
 }
 
 .points-label::after {
@@ -264,6 +297,7 @@ body {
 #point {
     margin-left: 12px;
     word-spacing: -15px;
+    
 }
 
 #point input {

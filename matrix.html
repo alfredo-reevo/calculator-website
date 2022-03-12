@@ -25,11 +25,23 @@
             </div>
             <div class="tab-content">
                 <div id="vector-inputs" data-tab-content class="active">
-                    <label class="vector-label">Input Vector:</label>
+                    <label class="vector-label">Vector:</label>
+                    <select id="vector-type">
+                        <option id="singular">Singular</option>
+                        <option id="parametric">Parametric</option>
+                    </select>
                     <p id="vector">
+                        <div class="type" id="vector-singular">
                         <input class="vector-props" id="vector_i" placeholder="a">i
                         <input class="vector-props" id="vector_j" placeholder="b">j
-                        <input class="vector-props" id="vector_k" placeholder="c">k
+                        <input class="vector-props" id="vector_k" placeholder="c">k &nbsp;
+                        </div>
+                        <div class="type" id="vector-parametric">
+                            +<input class="vector-props-param" id="vector_lambda" placeholder="&lambda;"><!--
+                            -->(<input class="vector-props-param" id="vector_d" placeholder="d">i<!--
+                            --><input class="vector-props-param" id="vector_e" placeholder="e">j<!--
+                            --><input class="vector-props-param" id="vector_f" placeholder="f">k&nbsp;&nbsp;)
+                        </div>
                         <button id="v-button">Submit</button>
                     </p>
                     <label class="points-label">Points</label>                    
@@ -78,12 +90,12 @@
                             <p id="examples-label">Examples</p>                            
                         </div>
                         <div class="example-buttons">
-                            <button id="ninety-deg-x">90&deg; Anti-Clockwise (x-axis)</button>
-                            <button id="ninety-deg-y">90&deg; Anti-Clockwise (y-axis)</button>
-                            <button id="ninety-deg-z">90&deg; Anti-Clockwise (z-axis)</button>
-                            <button id="oneeighty-deg-x">180&deg; Anti-Clockwise (x-axis)</button>
-                            <button id="oneeighty-deg-y">180&deg; Anti-Clockwise (y-axis)</button>
-                            <button id="oneeighty-deg-z">180&deg; Anti-Clockwise (z-axis)</button>
+                            <button id="ninety-deg-x">90&deg; Clockwise (x-axis)</button>
+                            <button id="ninety-deg-y">90&deg; Clockwise (y-axis)</button>
+                            <button id="ninety-deg-z">90&deg; Clockwise (z-axis)</button>
+                            <button id="oneeighty-deg-x">180&deg; Clockwise (x-axis)</button>
+                            <button id="oneeighty-deg-y">180&deg; Clockwise (y-axis)</button>
+                            <button id="oneeighty-deg-z">180&deg; Clockwise (z-axis)</button>
                         </div>
                     </div>
                     <div id="plane-inputs" data-tab-content>

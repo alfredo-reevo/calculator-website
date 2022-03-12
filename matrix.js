@@ -305,6 +305,22 @@ function pointCreate() {
 // - Vectors - //
 
 let vecBtn = document.getElementById("v-button");
+let vecType = document.getElementById("vector-type");
+console.log(typeof(vecType.value));
+
+let parametricTerm = document.getElementById("vector-parametric");
+
+
+vecType.addEventListener("change", () => {
+    console.log("Selected option: ", vecType.value)
+    if (vecType.value == "Parametric") {
+        parametricTerm.style.visibility = "visible"
+        
+    }
+    else {
+        parametricTerm.style.visibility = "hidden"
+    }
+})
 
 vecBtn.addEventListener("click", vectorCreate);
 
@@ -315,31 +331,45 @@ let vectorN = 0;
 var activeVectors = [];
 function vectorCreate() {
         
-        var i = document.getElementById("vector_i");
-        var j = document.getElementById("vector_j");
-        var k = document.getElementById("vector_k");
+        let iComponent = document.getElementById("vector_i").value;
+        let jComponent = document.getElementById("vector_j").value;
+        let kComponent = document.getElementById("vector_k").value;
         
-        let iComponent = i.value;
-        let jComponent = j.value;
-        let kComponent = k.value;
-        
+
+        let lambda = document.getElementById("vector_lambda").value;
+        let iDirection = document.getElementById("vector_d").value;
+        let jDirection = document.getElementById("vector_e").value;
+        let kDirection = document.getElementById("vector_f").value;
+
+        /*
         iComponent = parseFloat(iComponent);
         jComponent = parseFloat(jComponent);
         kComponent = parseFloat(kComponent);
-        
+        */
+
+
         var vectorGeometry;
         var vectorMaterial;
         var vector;
 
+ 
         if (iComponent !== NaN && jComponent != NaN && kComponent != NaN) {               
 
             // Line Vectors
-        
             const vPoints = [];
-            vPoints.push(new THREE.Vector3(0, 0, 0));
-            vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
         
-            
+            if (vecType.value == "Singular") {
+                vPoints.push(new THREE.Vector3(0, 0, 0));
+                vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
+            }
+            else if (vecType.value == "Parametric") {
+                vPoints.push(new THREE.Vector3(0, 0, 0))
+                vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
+                vPoints.push(new THREE.Vector3(lambda*iDirection, lambda*jDirection, lambda*kDirection));
+                console.log(vPoints);
+            }
+        
+
             vectorGeometry = new THREE.BufferGeometry().setFromPoints(vPoints);
             vectorMaterial = new THREE.LineBasicMaterial({color: 0x4AC5FF});
             
@@ -360,9 +390,11 @@ function vectorCreate() {
             scene.add(vectorOne);
             */
         }
-            
         
-        let vectorObj = {
+        let vectorObj;
+        
+        if (vecType.value == "Singular") {
+        vectorObj = {
             name: `Vector ${vectorN}`,
             value: `vector-${vectorN}`,
             coords: `(${iComponent}, ${jComponent}, ${kComponent})`,
@@ -371,12 +403,31 @@ function vectorCreate() {
             mat: vectorMaterial,
             mesh: vector,
             index: vectorN,
-            x: parseFloat(iComponent),
-            y: parseFloat(jComponent),
-            z: parseFloat(kComponent)
+            x: iComponent,
+            y: jComponent,
+            z: kComponent
         };
-        
+    }
+    else if (vecType.value == "Parametric") {
+        vectorObj = {
+            name: `Vector ${vectorN}`,
+            value: `vector-${vectorN}`,
+            coords: `(${iComponent}, ${jComponent}, ${kComponent}) + (${lambda*iDirection}, ${lambda*jDirection}, ${lambda*kDirection})`,
+            type: "vector-param",
+            geo: vectorGeometry,
+            mat: vectorMaterial,
+            mesh: vector,
+            index: vectorN,
+            x: iComponent,
+            y: jComponent,
+            z: kComponent,
+            lambdaX: lambda*iDirection,
+            lambdaY: lambda*jDirection,
+            lambdaZ: lambda*kDirection
+        }
+    }
         activeVectors.push(vectorObj);      
+    
         
         // -- ACTIVE VECTOR LIST -- //
         
@@ -595,22 +646,38 @@ function vectorCreate() {
 
         let applyBtn = document.getElementById("apply-matrix-btn");
         var columnVector = [];
-        
+        var columnVectorLambda = [];
 
         let transN = 0;
         applyBtn.addEventListener("click", () => {            
             let matrixSelect = document.getElementById("vector-select");
             columnVector = [];
+            columnVectorLambda = [];
                     
             let currVector = activeVectors.filter(vectorObj => vectorObj["value"] === matrixSelect.value)            
                         
             /* The array columnVector holds the x, y and z coordinates of a vector in a 2D array, 
                 which emulates a 3x1 matrix
                 */
+
+            if (currVector[0].type == "vector"){
             columnVector.push([currVector[0]["x"]]);
             columnVector.push([currVector[0]["y"]]);
             columnVector.push([currVector[0]["z"]]);
-                                            
+            }
+            else if (currVector[0].type == "vector-param") {
+            columnVector.push([currVector[0]["x"]]);
+            columnVector.push([currVector[0]["y"]]);
+            columnVector.push([currVector[0]["z"]]);
+            console.log("columnVector: ", columnVector);
+        
+
+            columnVectorLambda.push([currVector[0]["lambdaX"]]);
+            columnVectorLambda.push([currVector[0]["lambdaY"]]);
+            columnVectorLambda.push([currVector[0]["lambdaZ"]]);
+            console.log("columnVectorLambda: ", columnVectorLambda);
+            }
+            
                 // Matrix Calculations //
             let matrixA = document.getElementById("matrix-a").value;
             let matrixB = document.getElementById("matrix-b").value;
@@ -629,16 +696,32 @@ function vectorCreate() {
             let transX = 0;
             let transY = 0;
             let transZ = 0;
+
+            let transLambdaX = 0;
+            let transLambdaY = 0;
+            let transLambdaZ = 0;
                 
+            if (currVector[0].type == "vector") {
             transX = ((matrixA * columnVector[0][0]) + (matrixB * columnVector[1][0]) + (matrixC * columnVector[2][0]));
             transY = ((matrixD * columnVector[0][0]) + (matrixE * columnVector[1][0]) + (matrixF * columnVector[2][0]));
             transZ = ((matrixG * columnVector[0][0]) + (matrixH * columnVector[1][0]) + (matrixI * columnVector[2][0]));
-                    
-
             
             transformCoords.push(new THREE.Vector3(0, 0, 0));
             transformCoords.push(new THREE.Vector3(transX, transY, transZ));            
-                    
+            }
+            else if (currVector[0].type == "vector-param") {
+            transX = ((matrixA * columnVector[0][0]) + (matrixB * columnVector[1][0]) + (matrixC * columnVector[2][0]));
+            transY = ((matrixD * columnVector[0][0]) + (matrixE * columnVector[1][0]) + (matrixF * columnVector[2][0]));
+            transZ = ((matrixG * columnVector[0][0]) + (matrixH * columnVector[1][0]) + (matrixI * columnVector[2][0]));
+
+            transLambdaX = ((matrixA * columnVectorLambda[0][0]) + (matrixB * columnVectorLambda[1][0]) + (matrixC * columnVectorLambda[2][0]));
+            transLambdaY = ((matrixD * columnVectorLambda[0][0]) + (matrixE * columnVectorLambda[1][0]) + (matrixF * columnVectorLambda[2][0]));
+            transLambdaZ = ((matrixG * columnVectorLambda[0][0]) + (matrixH * columnVectorLambda[1][0]) + (matrixI * columnVectorLambda[2][0]));
+
+            transformCoords.push(new THREE.Vector3(0, 0, 0));
+            transformCoords.push(new THREE.Vector3(transX, transY, transZ)); 
+            transformCoords.push(new THREE.Vector3(transLambdaX, transLambdaY, transLambdaZ));
+            }
 
             const transGeometry = new THREE.BufferGeometry().setFromPoints(transformCoords);
             const transMaterial = new THREE.LineBasicMaterial({color: 0xFF8B00});
@@ -651,20 +734,43 @@ function vectorCreate() {
             // Create a new list item for transformed vector (e.g: Vector 1 (Transform): (5, 4, 3))
             const vectorList = document.getElementById("vector-list");
             let transAppend = document.createElement("li");
-            transAppend.textContent = (`${currVector[0]["name"]} (Transform): (${transX}, ${transY}, ${transZ})`);     
+            
+            let tVectorObj;
+
+            if (currVector[0].type == "vector") {
+            tVectorObj = {
+                name: `${currVector[0]["name"]} (Transform)`,
+                value: `${currVector[0]["value"]}-transform[${transN}]`,
+                coords: `(${transX}, ${transY}, ${transZ})`,
+                type: "vector",
+                geo: transGeometry,
+                mat: transMaterial,
+                mesh: transVector,
+                x: transX,
+                y: transY,
+                z: transZ
+            };
+        }
+        else if (currVector[0].type == "vector-param") {
+            tVectorObj = {
+                name: `${currVector[0]["name"]} (Transform)`,
+                value: `${currVector[0]["value"]}-transform[${transN}]`,
+                coords: `(${transX}, ${transY}, ${transZ}) + (${transLambdaX}, ${transLambdaY}, ${transLambdaZ})`,
+                type: "vector-param",
+                geo: transGeometry,
+                mat: transMaterial,
+                mesh: transVector,
+                x: transX,
+                y: transY,
+                z: transZ,
+                lambdaX: transLambdaX,
+                lambdaY: transLambdaY,
+                lambdaZ: transLambdaZ
+            }
+        }
+            
+        transAppend.textContent = (`${currVector[0]["name"]} (Transform): ${tVectorObj["coords"]}`);     
             transAppend.id = (`${currVector[0]["value"]}-transform[${transN}]`);
-                
-                let tVectorObj = {
-                    name: `${currVector[0]["name"]} (Transform)`,
-                    value: `${currVector[0]["value"]}-transform[${transN}]`,
-                    coords: `(${transX}, ${transY}, ${transZ})`,
-                    geo: transGeometry,
-                    mat: transMaterial,
-                    mesh: transVector,
-                    x: parseFloat(transX),
-                    y: parseFloat(transY),
-                    z: parseFloat(transZ)
-                };
                 
                 var removeVector = document.getElementById("remove-vector");
 
