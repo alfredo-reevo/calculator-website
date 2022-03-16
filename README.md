@@ -20,12 +20,12 @@ At this point in time, this project consists only of:
   3-Dimensional vectors and apply matrix transformations.
   The user can also remove created vectors at will, including transformed vectors.
   
-  - #### ***-- NEW --*** Points
+  - #### Points
     - The "Points" Feature allows you to create visible points within the 3D space, similarly to creating vectors.
       Points can be useful for finding intersections between vectors, and can make visualising more complicated vector combinations 
       much easier.
   
-  - ##### ***-- NEW --*** Planes
+  - ##### Planes
     - The "Planes" feature allows you to create visible planes within the 3D space, through the equation
       ***ax + by + cz = d***,
       otherwise known as **Hessian Normal Form**.
@@ -33,8 +33,12 @@ At this point in time, this project consists only of:
       I intend to add automatic intersection calculations to show the user where a vector may intersect with the plane.
   
   
-  - ##### *- TODO -* Parametric Vectors
-  
+  - ##### Parametric Vectors
+    - Parametric vectors are an alternative object to singular vectors; consisting of a general point and a subsequent parametric point.
+    
+    **r = ai + bj + ck + λ(di + ej + fk)**
+    
+    where λ is a parameter.
 
 ## Future Intentions
 
@@ -44,8 +48,6 @@ Some ideas that pop into mind are:
 
 <sup>Italic = High Priority</sup>
 
-- *Implementation of direction vectors*
-  - **r** = ai + bj + ck + *λ*(di + ej + fk)
 - Guidelines
 - Graphical representation of Quadratic Solver's results
   - Show the roots via a graphical medium, similar to Desmos.
