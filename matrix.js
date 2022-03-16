@@ -331,23 +331,24 @@ let vectorN = 0;
 var activeVectors = [];
 function vectorCreate() {
         
-        let iComponent = document.getElementById("vector_i").value;
-        let jComponent = document.getElementById("vector_j").value;
-        let kComponent = document.getElementById("vector_k").value;
-        
+        var iComponent = parseFloat(document.getElementById("vector_i").value);
+        var jComponent = parseFloat(document.getElementById("vector_j").value);
+        var kComponent = parseFloat(document.getElementById("vector_k").value);
 
-        let lambda = document.getElementById("vector_lambda").value;
-        let iDirection = document.getElementById("vector_d").value;
-        let jDirection = document.getElementById("vector_e").value;
-        let kDirection = document.getElementById("vector_f").value;
+        var lambda = parseFloat(document.getElementById("vector_lambda").value);
+        console.log("Lambda = ", lambda);
+        var iDirection = parseFloat(document.getElementById("vector_d").value);
+        var jDirection = parseFloat(document.getElementById("vector_e").value);
+        var kDirection = parseFloat(document.getElementById("vector_f").value);
 
-        let directionX = (Math.round((lambda*iDirection)*100) / 100).toFixed(2);
-        let directionY = (Math.round((lambda*jDirection)*100) / 100).toFixed(2);
-        let directionZ = (Math.round((lambda*kDirection)*100) / 100).toFixed(2);
-        console.log(directionX);
-        console.log(directionY);
-        console.log(directionZ);
-        
+        var iParameter = parseFloat(lambda*iDirection).toFixed(2);
+        var jParameter = parseFloat(lambda*jDirection).toFixed(2);
+        var kParameter = parseFloat(lambda*kDirection).toFixed(2);
+
+        var directionX = parseFloat(parseFloat(iComponent) + parseFloat(iParameter))
+        var directionY = parseFloat(parseFloat(jComponent) + parseFloat(jParameter))
+        var directionZ = parseFloat(parseFloat(kComponent) + parseFloat(kParameter))
+    
 
         var vectorGeometry;
         var vectorMaterial;
@@ -366,7 +367,7 @@ function vectorCreate() {
             else if (vecType.value == "Parametric") {
                 vPoints.push(new THREE.Vector3(0, 0, 0))
                 vPoints.push(new THREE.Vector3(iComponent, jComponent, kComponent));
-                vPoints.push(new THREE.Vector3(directionX, directionY, directionZ));
+                vPoints.push(new THREE.Vector3(parseFloat(directionX), parseFloat(directionY), parseFloat(directionZ)));
                 console.log(vPoints);
             }
         
