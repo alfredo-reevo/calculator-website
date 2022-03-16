@@ -123,7 +123,7 @@ function planeCreate() {
 
     if (a != NaN && b != NaN && c != NaN && d != NaN) {
         let planeHex = planeColours[Math.floor(Math.random()*planeColours.length)];
-        planeGeometry = new THREE.BufferGeometry(30, 30);
+        planeGeometry = new THREE.BufferGeometry(100, 100);
         planeMaterial = new THREE.MeshBasicMaterial({color: planeHex, 
         side: THREE.DoubleSide});
         plane = new THREE.Mesh(planeGeometry, planeMaterial)
@@ -192,7 +192,7 @@ function planeCreate() {
             scale = 1e-8
         }
 
-        plane.scale.set(0.5 * 30, 0.5 * 30, scale);
+        plane.scale.set(0.5 * 100, 0.5 * 100, scale);
         const planePositions = [ -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1 ];
 
         planeGeometry.setAttribute("position", new THREE.Float32BufferAttribute(planePositions, 3));
@@ -1006,8 +1006,8 @@ oneeightyZ.addEventListener("click", () => {
 
 // -- Grid Plane -- //
 
-var size = 30;
-var step = 30;
+var size = 100;
+var step = 100;
 
 const grid = new THREE.GridHelper(size, step);
 scene.add(grid);
@@ -1145,10 +1145,6 @@ window.addEventListener("resize", () => {
 
     camera.updateProjectionMatrix();
 })
-
-
-
-
 
 
 // Update
