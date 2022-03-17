@@ -63,6 +63,7 @@ const scene = new THREE.Scene();
 
 // -- Camera -- // 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.far = 2000
 camera.lookAt(0, 0, 0);
 
 
@@ -1006,8 +1007,8 @@ oneeightyZ.addEventListener("click", () => {
 
 // -- Grid Plane -- //
 
-var size = 100;
-var step = 100;
+var size = 60;
+var step = 60;
 
 const grid = new THREE.GridHelper(size, step);
 scene.add(grid);
