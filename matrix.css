@@ -13,13 +13,13 @@
     src: url("font/lmroman10-italic-webfont.ttf");
 }
 
-@media screen and (max-width: 1335px) and (orientation:portrait) {
+@media screen and (max-width: 376px) and (orientation:portrait) {
     
     body {
-        min-width: 1334px;
-        max-width: 1334px;
-        min-height: 750px;
-        max-height: 750px;
+        min-width: 375px;
+        max-width: 375px;
+        min-height: 667px;
+        max-height: 667px;
     }
     .container {
         font-size: 10px;        
