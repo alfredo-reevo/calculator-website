@@ -13,85 +13,7 @@
     src: url("font/lmroman10-italic-webfont.ttf");
 }
 
-@media only screen and (max-width: 480px) {
-    .mobile-warning {
-        display: block;
-        background-color: rgb(240, 237, 238);
-        height: 100%;
-        width: 100%;
-        z-index: 50;
-        position: fixed;
-        color: rgb(44, 102, 110);
-        font-family: mathFont;
-    }
-    
-    .mobile-warning h1 {
-        font-size: 50px;
-        padding: 5px;
-        margin-left: 110px;
-        margin-left: 3.5em;
-    }
-    
-    .mobile-warning h1::after {
-        content: "";
-        display: block;
-        background-color: rgb(7, 57, 60);
-        border-radius: 10px;
-        width: 136px;
-        height: 3px;
-        left: 3.5em;
-        align-items: center;
-        position: absolute;
-    }
-    
-    .mobile-warning h2,
-    .mobile-warning h3 {
-        font-size: 130%;
-        padding-left: 10px;
-        padding-right: 10px;
-        text-align: center;
-    }
-}
 
-@media only screen and (max-width: 768px) {
-    .mobile-warning {
-        display: block;
-        background-color: rgb(240, 237, 238);
-        height: 100%;
-        width: 100%;
-        z-index: 50;
-        position: fixed;
-        color: rgb(44, 102, 110);
-        font-family: mathFont;
-    }
-    
-    .mobile-warning h1 {
-        font-size: 50px;
-        padding: 5px;
-        margin-left: 110px;
-        margin-left: 3.5em;
-    }
-    
-    .mobile-warning h1::after {
-        content: "";
-        display: block;
-        background-color: rgb(7, 57, 60);
-        border-radius: 10px;
-        width: 136px;
-        height: 3px;
-        left: 3.5em;
-        align-items: center;
-        position: absolute;
-    }
-    
-    .mobile-warning h2,
-    .mobile-warning h3 {
-        font-size: 130%;
-        padding-left: 10px;
-        padding-right: 10px;
-        text-align: center;
-    }
-}
 
 .mobile-warning {
     display: none;
@@ -834,4 +756,141 @@ body {
     color: grey;
     position: absolute;
     margin-left: 1600px;
+}
+
+@media all and (max-width: 480px) {
+    
+    .title {
+        display: none;
+    }
+
+    .tab-container {
+        display: none;
+    }
+    
+    .mobile-warning {
+        display: block;
+        background-color: rgb(240, 237, 238);
+        height: 100%;
+        width: 100%;
+        z-index: 50;
+        position: fixed;
+        color: rgb(44, 102, 110);
+        font-family: mathFont;
+    }
+    
+    #sorry {
+        font-size: 15vw;
+        padding: 5px;
+        text-align: center;
+        background-color: rgb(10, 9, 12);
+        width: 100vw;
+    }
+    
+    #github-title {
+        font-size: 15vw;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 10vh;
+        position: absolute;
+        bottom: 150px;
+        transform: translate(50%, 0);
+    }
+
+    #github-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        padding: 30px;
+        bottom: 0;
+        left: 50%;
+
+        transform: translate(-50%, 0);
+    }
+
+    #sorry::after {
+        content: "";
+        display: flex;
+        text-align: center;
+        background-color: rgb(7, 57, 60);
+        border-radius: 10px;
+        width: 96.5%;
+        height: 3px;
+    }
+    
+    
+    .mobile-warning h2,
+    .mobile-warning h3 {
+        font-size: 7vw;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        padding: 5px;
+    }
+}
+
+
+@media all and (max-width: 1024px) and (min-width: 768px) {
+    
+    .title {
+        display: none;
+    }
+
+    .tab-container {
+        display: none;
+    }
+    
+    .mobile-warning {
+        display: block;
+        background-color: rgb(240, 237, 238);
+        height: 100%;
+        width: 100%;
+        z-index: 50;
+        position: fixed;
+        color: rgb(44, 102, 110);
+        font-family: mathFont;
+    }
+    
+    #sorry {
+        font-size: 15vw;
+        padding: 5px;
+        text-align: center;
+        background-color: rgb(10, 9, 12);
+        width: 100vw;
+    }
+    
+    #github-title {
+        font-size: 10vw;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    #github-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+    }
+
+    #sorry::after {
+        content: "";
+        display: flex;
+        text-align: center;
+        background-color: rgb(7, 57, 60);
+        border-radius: 10px;
+        width: 96.5%;
+        height: 3px;
+    }
+    
+    
+    .mobile-warning h2,
+    .mobile-warning h3 {
+        font-size: 5vw;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+        padding: 5px;
+    }
 }
