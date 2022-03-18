@@ -803,7 +803,7 @@ body {
         justify-content: center;
         position: absolute;
         padding: 80px;
-        bottom: -10px;
+        bottom: -40px;
         left: 50%;
 
         transform: translate(-50%, 0);
