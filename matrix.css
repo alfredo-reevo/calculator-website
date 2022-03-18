@@ -13,41 +13,130 @@
     src: url("font/lmroman10-italic-webfont.ttf");
 }
 
-@media screen and (max-width: 376px) and (orientation:portrait) and (max-height: 668px) {
-    
-    body {
-        width: 375px;
-        height: 667px;
-    }
-    .title {
-        font-size: 10px;        
-        align-content: center;
-        /*margin-left: 12em;*/
-    }
-    #canv {
-        transform: scale(1);
-        width: 100%;
-        margin-left: 0em;
-        margin-top: 0em;
+@media only screen and (max-width: 480px) {
+    .mobile-warning {
+        display: block;
+        background-color: rgb(240, 237, 238);
         height: 100%;
-        z-index: 0;    
+        width: 100%;
+        z-index: 50;
+        position: fixed;
+        color: rgb(44, 102, 110);
+        font-family: mathFont;
+    }
+    
+    .mobile-warning h1 {
+        font-size: 50px;
+        padding: 5px;
+        margin-left: 110px;
+        margin-left: 3.5em;
+    }
+    
+    .mobile-warning h1::after {
+        content: "";
+        display: block;
+        background-color: rgb(7, 57, 60);
+        border-radius: 10px;
+        width: 136px;
+        height: 3px;
+        left: 3.5em;
+        align-items: center;
         position: absolute;
     }
-    .tab-container {
-        transform: scale(0.7);
-        align-content: center;
-        display: block;
-        z-index: 4;
+    
+    .mobile-warning h2,
+    .mobile-warning h3 {
+        font-size: 130%;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
     }
+}
 
+@media only screen and (max-width: 768px) {
+    .mobile-warning {
+        display: block;
+        background-color: rgb(240, 237, 238);
+        height: 100%;
+        width: 100%;
+        z-index: 50;
+        position: fixed;
+        color: rgb(44, 102, 110);
+        font-family: mathFont;
+    }
+    
+    .mobile-warning h1 {
+        font-size: 50px;
+        padding: 5px;
+        margin-left: 110px;
+        margin-left: 3.5em;
+    }
+    
+    .mobile-warning h1::after {
+        content: "";
+        display: block;
+        background-color: rgb(7, 57, 60);
+        border-radius: 10px;
+        width: 136px;
+        height: 3px;
+        left: 3.5em;
+        align-items: center;
+        position: absolute;
+    }
+    
+    .mobile-warning h2,
+    .mobile-warning h3 {
+        font-size: 130%;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+    }
+}
+
+.mobile-warning {
+    display: none;
+    background-color: rgb(240, 237, 238);
+    height: 100%;
+    width: 100%;
+    z-index: 50;
+    position: fixed;
+    color: rgb(44, 102, 110);
+    font-family: mathFont;
+}
+
+.mobile-warning h1 {
+    font-size: 50px;
+    padding: 5px;
+    margin-left: 110px;
+    margin-left: 3.5em;
+}
+
+.mobile-warning h1::after {
+    content: "";
+    display: block;
+    background-color: rgb(7, 57, 60);
+    border-radius: 10px;
+    width: 136px;
+    height: 3px;
+    left: 3.5em;
+    align-items: center;
+    position: absolute;
+}
+
+.mobile-warning h2,
+.mobile-warning h3 {
+    font-size: 130%;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
 }
 
 html,
 body {
-    height: 100vh;
-    width: 100vw;
     font-family: Arial, Helvetica, sans-serif;
     background: rgb(24, 24, 24);
+    height: 100vh;
+    width: 100vw;
 }
 
 body {
@@ -649,7 +738,7 @@ body {
     padding: 0;
     background-color: white;
     border-radius: 5px;
-    z-index: 100;
+    z-index: 10;
 }
 
 #active-vectors {
@@ -737,6 +826,7 @@ body {
     align-items: center;
     flex-direction: column;
     position: absolute center;
+    z-index: 1;
 }
 
 .container h3 {
