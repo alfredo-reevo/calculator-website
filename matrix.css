@@ -13,32 +13,31 @@
     src: url("font/lmroman10-italic-webfont.ttf");
 }
 
-@media screen and (max-width: 376px) and (orientation:portrait) {
+@media screen and (max-width: 376px) and (orientation:portrait) and (max-height: 668px) {
     
     body {
-        min-width: 375px;
-        max-width: 375px;
-        min-height: 667px;
-        max-height: 667px;
+        width: 375px;
+        height: 667px;
     }
-    .container {
+    .title {
         font-size: 10px;        
-
-        margin-left: 12em;
+        align-content: center;
+        /*margin-left: 12em;*/
     }
     #canv {
-        transform: scale(0.6);
-        width: 10%;
-        margin-left: -16.5em;
-        margin-top: -3em;
-        height: 50%;
-        z-index: 1;
+        transform: scale(1);
+        width: 100%;
+        margin-left: 0em;
+        margin-top: 0em;
+        height: 100%;
+        z-index: 1;    
     }
     .tab-container {
-        transform: scale(0.8);
+        transform: scale(0.7);
+        align-content: center;
         display: block;
-
     }
+
 }
 
 html,
@@ -728,7 +727,7 @@ body {
 
 }
 
-.container {
+.title {
     padding: 2px;
     font-family: mathFont;
     color: gainsboro;
