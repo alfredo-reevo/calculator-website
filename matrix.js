@@ -1021,7 +1021,7 @@ yPoints.push(new THREE.Vector3(0,0,0));
 yPoints.push(new THREE.Vector3(0,(size/2),0));
 yPoints.push(new THREE.Vector3(0,-(size/2),0));
 const yAxis_geo = new THREE.BufferGeometry().setFromPoints(yPoints);
-const yAxis_mat = new THREE.LineBasicMaterial({color: 0xffffff});
+const yAxis_mat = new THREE.LineBasicMaterial({color: 0xA7A7A7});
 
 const yAxis = new THREE.Line(yAxis_geo, yAxis_mat);
 scene.add(yAxis)
@@ -1048,7 +1048,7 @@ const xPoints = []
 xPoints.push(new THREE.Vector3(-(size/2),0,0));
 xPoints.push(new THREE.Vector3((size/2), 0 ,0));
 const xAxis_geo = new THREE.BufferGeometry().setFromPoints(xPoints);
-const xAxis_mat = new THREE.LineBasicMaterial({color: 0xffffff});
+const xAxis_mat = new THREE.LineBasicMaterial({color: 0xA7A7A7});
 
 const xAxis = new THREE.Line(xAxis_geo, xAxis_mat);
 scene.add(xAxis)
@@ -1086,7 +1086,7 @@ const zPoints = []
 zPoints.push(new THREE.Vector3(0,0,-(size/2)));
 zPoints.push(new THREE.Vector3(0, 0, (size/2)));
 const zAxis_geo = new THREE.BufferGeometry().setFromPoints(zPoints);
-const zAxis_mat = new THREE.LineBasicMaterial({color: 0xffffff});
+const zAxis_mat = new THREE.LineBasicMaterial({color: 0xA7A7A7});
 
 const zAxis = new THREE.Line(zAxis_geo, zAxis_mat);
 scene.add(zAxis)
