@@ -13,24 +13,23 @@
     src: url("font/lmroman10-italic-webfont.ttf");
 }
 
-@media screen and (max-width: 376px) and (orientation:portrait) {
+@media screen and (max-width: 1335px) and (orientation:portrait) {
     
     body {
-        min-width: 375px;
-        max-width: 375px;
-        min-height: 667px;
-        max-height: 667px;
+        min-width: 1334px;
+        max-width: 1334px;
+        min-height: 750px;
+        max-height: 750px;
     }
     .container {
         font-size: 10px;        
-
-        margin-left: 12em;
+        margin-left: -66em;
     }
     #canv {
         transform: scale(0.6);
         width: 10%;
-        margin-left: -16.5em;
-        margin-top: -3em;
+        margin-left: -13em;
+        margin-top: -5em;
         height: 50%;
         z-index: 1;
     }
