@@ -3,6 +3,8 @@
 
 ## Overview
 
+# ***CURRENTLY INCOMPATIBLE WITH MOBILE DEVICES***
+
 This is my first substantial web development project, primarily created out of general interest as well as to help develop a better understanding of 3-Dimensional Graphics 
 and 3D Vectors (regarding the matrix/vector visualiser).
 
