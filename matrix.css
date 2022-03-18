@@ -31,12 +31,13 @@
         margin-top: 0em;
         height: 100%;
         z-index: 0;    
+        position: absolute;
     }
     .tab-container {
         transform: scale(0.7);
         align-content: center;
         display: block;
-        z-index: 100;
+        z-index: 4;
     }
 
 }
