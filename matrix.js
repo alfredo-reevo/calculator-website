@@ -748,7 +748,7 @@ function vectorCreate() {
 
             if (currVector[0].type == "vector") {
             tVectorObj = {
-                name: `${currVector[0]["name"]} (Transform)`,
+                name: `${currVector[0]["name"]} [T]`,
                 value: `${currVector[0]["value"]}-transform[${transN}]`,
                 coords: `(${transX}, ${transY}, ${transZ})`,
                 type: "vector",
@@ -762,7 +762,7 @@ function vectorCreate() {
         }
         else if (currVector[0].type == "vector-param") {
             tVectorObj = {
-                name: `${currVector[0]["name"]} (Transform)`,
+                name: `${currVector[0]["name"]} [T]`,
                 value: `${currVector[0]["value"]}-transform[${transN}]`,
                 coords: `(${transX}, ${transY}, ${transZ}) + (${transLambdaX}, ${transLambdaY}, ${transLambdaZ})`,
                 type: "vector-param",
@@ -778,7 +778,7 @@ function vectorCreate() {
             }
         }
             
-        transAppend.textContent = (`${currVector[0]["name"]} (Transform): ${tVectorObj["coords"]}`);     
+        transAppend.textContent = (`${currVector[0]["name"]} [T]: ${tVectorObj["coords"]}`);     
             transAppend.id = (`${currVector[0]["value"]}-transform[${transN}]`);
                 
                 var removeVector = document.getElementById("remove-vector");
